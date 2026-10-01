@@ -14,15 +14,13 @@ The `imageVariant` option selects the base image:
 | `googleGemini`    | `google.geminicodeassist` VS Code extension, `~/.gemini/trustedFolders.json`, sets `CODER_AGENT_ALLOWED_ROOT=/workspaces`       |
 | `anthropicClaude` | `Anthropic.claude-code` VS Code extension, `google-cloud-cli`, `~/.claude/settings.json`, disables the Claude Code login prompt |
 
-Both options are enabled by default. They are implemented by the local features
-in the `.devcontainer/features` directory, the option value selects either the
-`*-true` feature or the no-op `*-false` feature. You can delete the unused
-feature directories after applying the template.
+Both options are enabled by default. They are implemented by the
+[features](https://github.com/lslezak/suse-devcontainer-template/tree/main/features)
+published at `ghcr.io/lslezak/suse-devcontainer-template/features`, the option
+value selects either the `*-true` feature or the no-op `*-false` feature.
 
 The configuration files are copied to the home directory only when they do not
-exist yet, your changes in the persistent home volume are not overwritten. Edit
-the files in the `.devcontainer/features/*-true` directories to change the
-defaults.
+exist yet, your changes in the persistent home volume are not overwritten.
 
 ## Customization
 

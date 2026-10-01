@@ -34,8 +34,8 @@ ARG BASE_PACKAGES="bash-completion \
 ARG DEVEL_PACKAGES=""
 
 # AI code assisting related packages, the agents usually run Bash or Python code
-# snippets, the AI specific packages are installed by the features in the
-# "features" subdirectory
+# snippets, the AI specific packages are installed by the features referenced
+# in the devcontainer.json file
 ARG AI_PACKAGES="python3 python3-pip"
 
 # Install all packages at once

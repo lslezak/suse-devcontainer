@@ -40,12 +40,12 @@ Container_ command.
 │       ├── NOTES.md                     # additional documentation
 │       └── .devcontainer                # files copied to the user project
 │           ├── devcontainer.json
-│           ├── Dockerfile
-│           └── features                 # optional AI code assistants
-│               ├── claude-false
-│               ├── claude-true
-│               ├── gemini-false
-│               └── gemini-true
+│           └── Dockerfile
+├── features                             # features used by the templates
+│   ├── claude-false                     # (optional AI code assistants)
+│   ├── claude-true
+│   ├── gemini-false
+│   └── gemini-true
 └── test
     ├── smoke-test.sh                    # builds and tests a template
     ├── opensuse
@@ -57,6 +57,12 @@ Container_ command.
 Template options are referenced as `${templateOption:<option>}` in the template
 files, the value is substituted when the template is applied.
 
+The templates reference the features published to
+`ghcr.io/lslezak/suse-devcontainer-template/features/<feature-id>`. Local
+features (`./features/...`) cannot be used in templates, VS Code requires them
+to be located in the `.devcontainer` directory in the workspace, which does not
+work when the configuration is stored in the VS Code user data folder.
+
 ## Testing
 
 Build a template and run its tests in the container (requires the
@@ -67,16 +73,22 @@ test/smoke-test.sh opensuse imageVariant=tumbleweed
 ```
 
 Set the `CONTAINER_ENGINE` environment variable to use a different container
-engine.
+engine. The test uses the features from the `features` directory instead of the
+published ones, set the `USE_PUBLISHED_FEATURES=1` environment variable to test
+the published features.
 
 ## Releasing
 
-1. Increase the `version` in the `devcontainer-template.json` file.
+1. Increase the `version` in the changed `devcontainer-template.json` and
+   `devcontainer-feature.json` files. When increasing the major version of a
+   feature update the references in the templates.
 2. Run the [Release](.github/workflows/release.yaml) workflow manually from the
-   GitHub Actions page. It publishes the templates to
-   `ghcr.io/lslezak/suse-devcontainer-template/<template-id>` and creates a pull
-   request with the updated documentation.
-3. Make the published packages public in the GitHub package settings.
+   GitHub Actions page. It publishes the features to
+   `ghcr.io/lslezak/suse-devcontainer-template/features/<feature-id>`, the
+   templates to `ghcr.io/lslezak/suse-devcontainer-template/<template-id>` and
+   creates a pull request with the updated documentation.
+3. Make the published packages public in the GitHub package settings (only
+   after the first release).
 
 To make the templates discoverable in VS Code and other tools add the
 repository to the
