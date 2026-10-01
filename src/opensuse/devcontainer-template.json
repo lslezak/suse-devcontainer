@@ -1,6 +1,6 @@
 {
   "id": "opensuse",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "name": "openSUSE",
   "description": "Development container based on openSUSE Leap or openSUSE Tumbleweed with common development tools and a non-root user.",
   "documentationURL": "https://github.com/lslezak/suse-devcontainer-template/tree/main/src/opensuse",
