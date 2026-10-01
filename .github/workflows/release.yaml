@@ -1,0 +1,39 @@
+name: "Release Templates & Generate Documentation"
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: "Publish Templates"
+        uses: devcontainers/action@v1
+        with:
+          publish-templates: "true"
+          base-path-to-templates: "./src"
+          generate-docs: "true"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Create PR for Documentation"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          branch="automated-documentation-update-$GITHUB_RUN_ID"
+          git checkout -b "$branch"
+          message="Automated documentation update"
+          git add src/*/README.md
+          if git commit -m "$message [skip ci]"; then
+            git push origin "$branch"
+            gh pr create --title "$message" --body "$message"
+          fi

@@ -1,0 +1,22 @@
+name: "Validate Templates"
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: "Validate devcontainer-template.json files"
+        uses: devcontainers/action@v1
+        with:
+          validate-only: "true"
+          base-path-to-templates: "./src"
+
+      - name: "Check shell scripts"
+        run: shellcheck -x test/*.sh test/*/*.sh

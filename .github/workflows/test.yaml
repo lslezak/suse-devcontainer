@@ -1,0 +1,35 @@
+name: "Test Templates"
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - template: opensuse
+            options: imageVariant=leap:16.0
+          - template: opensuse
+            options: imageVariant=tumbleweed
+    name: "${{ matrix.template }} (${{ matrix.options }})"
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: "Install the devcontainer CLI"
+        run: npm install -g @devcontainers/cli
+
+      # the template uses Podman specific options
+      - name: "Smoke test"
+        env:
+          CONTAINER_ENGINE: podman
+        run: test/smoke-test.sh "${{ matrix.template }}" ${{ matrix.options }}
