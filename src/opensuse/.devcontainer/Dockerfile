@@ -33,11 +33,10 @@ ARG BASE_PACKAGES="bash-completion \
 # packages needed for developing your project, add your own here
 ARG DEVEL_PACKAGES=""
 
-# AI code assisting related packages
-ARG AI_PACKAGES="google-cloud-cli python3 python3-pip"
-
-# Google Cloud CLI repository (provides x86_64 and aarch64 packages)
-RUN zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10
+# AI code assisting related packages, the agents usually run Bash or Python code
+# snippets, the AI specific packages are installed by the features in the
+# "features" subdirectory
+ARG AI_PACKAGES="python3 python3-pip"
 
 # Install all packages at once
 RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \

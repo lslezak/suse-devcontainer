@@ -3,9 +3,9 @@
 [Dev Container Templates](https://containers.dev/implementors/templates/) based
 on [openSUSE](https://www.opensuse.org/).
 
-| Template                    | Description                                                       |
-| --------------------------- | ----------------------------------------------------------------- |
-| [opensuse](src/opensuse)    | openSUSE Leap 16.0 or Tumbleweed with common development tools    |
+| Template                 | Description                                                                                        |
+| ------------------------ | -------------------------------------------------------------------------------------------------- |
+| [opensuse](src/opensuse) | openSUSE Leap 16.0 or Tumbleweed with common development tools, optional Gemini and Claude support |
 
 ## Usage
 
@@ -21,6 +21,11 @@ devcontainer templates apply --workspace-folder . \
 devcontainer templates apply --workspace-folder . \
   --template-id ghcr.io/lslezak/suse-devcontainer-template/opensuse \
   --template-args '{"imageVariant": "tumbleweed"}'
+
+# without the AI code assistants
+devcontainer templates apply --workspace-folder . \
+  --template-id ghcr.io/lslezak/suse-devcontainer-template/opensuse \
+  --template-args '{"googleGemini": "false", "anthropicClaude": "false"}'
 ```
 
 Then open the project in VS Code and run the _Dev Containers: Reopen in
@@ -35,7 +40,12 @@ Container_ command.
 │       ├── NOTES.md                     # additional documentation
 │       └── .devcontainer                # files copied to the user project
 │           ├── devcontainer.json
-│           └── Dockerfile
+│           ├── Dockerfile
+│           └── features                 # optional AI code assistants
+│               ├── claude-false
+│               ├── claude-true
+│               ├── gemini-false
+│               └── gemini-true
 └── test
     ├── smoke-test.sh                    # builds and tests a template
     ├── opensuse

@@ -1,0 +1,6 @@
+{
+  "id": "gemini-false",
+  "version": "1.0.0",
+  "name": "Google Gemini (disabled)",
+  "description": "Placeholder used when the Google Gemini support is disabled, it does not install anything"
+}

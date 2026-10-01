@@ -17,6 +17,8 @@ jobs:
             options: imageVariant=leap:16.0
           - template: opensuse
             options: imageVariant=tumbleweed
+          - template: opensuse
+            options: googleGemini=false anthropicClaude=false
     name: "${{ matrix.template }} (${{ matrix.options }})"
     steps:
       - uses: actions/checkout@v7

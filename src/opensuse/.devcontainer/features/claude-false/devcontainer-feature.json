@@ -1,0 +1,6 @@
+{
+  "id": "claude-false",
+  "version": "1.0.0",
+  "name": "Anthropic Claude (disabled)",
+  "description": "Placeholder used when the Anthropic Claude support is disabled, it does not install anything"
+}

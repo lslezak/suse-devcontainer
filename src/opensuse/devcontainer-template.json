@@ -1,6 +1,6 @@
 {
   "id": "opensuse",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "openSUSE",
   "description": "Development container based on openSUSE Leap or openSUSE Tumbleweed with common development tools and a non-root user.",
   "documentationURL": "https://github.com/lslezak/suse-devcontainer-template/tree/main/src/opensuse",
@@ -12,8 +12,18 @@
       "description": "openSUSE base system:",
       "enum": ["leap:16.0", "tumbleweed"],
       "default": "leap:16.0"
+    },
+    "googleGemini": {
+      "type": "boolean",
+      "description": "Install the Gemini Code Assist support",
+      "default": true
+    },
+    "anthropicClaude": {
+      "type": "boolean",
+      "description": "Install the Anthropic Claude support",
+      "default": true
     }
   },
   "platforms": ["Any"],
-  "keywords": ["openSUSE", "SUSE", "Leap", "Tumbleweed", "zypper"]
+  "keywords": ["openSUSE", "SUSE", "Leap", "Tumbleweed", "Gemini", "Claude"]
 }

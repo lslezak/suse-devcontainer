@@ -76,6 +76,11 @@ echo "(*) Building the dev container"
 devcontainer up --docker-path "$CONTAINER_ENGINE" --id-label "$ID_LABEL" \
   --workspace-folder "$SRC_DIR"
 
+# save the merged configuration (including the features) for the tests
+devcontainer read-configuration --docker-path "$CONTAINER_ENGINE" --id-label "$ID_LABEL" \
+  --workspace-folder "$SRC_DIR" --include-merged-configuration \
+  >"${TEST_DIR}/merged-configuration.json"
+
 echo "(*) Running the tests"
 devcontainer exec --docker-path "$CONTAINER_ENGINE" --id-label "$ID_LABEL" \
   --workspace-folder "$SRC_DIR" "${REMOTE_ENV[@]}" \

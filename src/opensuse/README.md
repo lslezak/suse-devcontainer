@@ -8,6 +8,8 @@ Development container based on openSUSE Leap or openSUSE Tumbleweed with common 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
 | imageVariant | openSUSE base system: | string | leap:16.0 |
+| googleGemini | Google Gemini: install the Gemini Code Assist extension and the ~/.gemini/trustedFolders.json file | boolean | true |
+| anthropicClaude | Anthropic Claude: install the Claude Code extension, the Google Cloud CLI and the ~/.claude/settings.json file | boolean | true |
 
 ## Base system
 
@@ -17,6 +19,23 @@ The `imageVariant` option selects the base image:
 | ----------- | --------------------------------------------- |
 | `leap:16.0` | `registry.opensuse.org/opensuse/leap:16.0`    |
 | `tumbleweed`| `registry.opensuse.org/opensuse/tumbleweed`   |
+
+## AI code assistants
+
+| Option            | Installs                                                                                                                        |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `googleGemini`    | `google.geminicodeassist` VS Code extension, `~/.gemini/trustedFolders.json`, sets `CODER_AGENT_ALLOWED_ROOT=/workspaces`       |
+| `anthropicClaude` | `Anthropic.claude-code` VS Code extension, `google-cloud-cli`, `~/.claude/settings.json`, disables the Claude Code login prompt |
+
+Both options are enabled by default. They are implemented by the local features
+in the `.devcontainer/features` directory, the option value selects either the
+`*-true` feature or the no-op `*-false` feature. You can delete the unused
+feature directories after applying the template.
+
+The configuration files are copied to the home directory only when they do not
+exist yet, your changes in the persistent home volume are not overwritten. Edit
+the files in the `.devcontainer/features/*-true` directories to change the
+defaults.
 
 ## Customization
 
@@ -33,9 +52,9 @@ file, the `--userns=keep-id` option is not supported by Docker.
 
 ## Google Cloud CLI
 
-The `google-cloud-cli` package is installed from the Google repository, which
-provides packages only for the `x86_64` and `aarch64` architectures. Remove it
-together with the repository from the `Dockerfile` if you do not need it.
+The `google-cloud-cli` package (installed with the `anthropicClaude` option) is
+installed from the Google repository, which provides packages only for the
+`x86_64` and `aarch64` architectures.
 
 
 ---
