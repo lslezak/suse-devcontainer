@@ -15,12 +15,12 @@
     },
     "googleGemini": {
       "type": "boolean",
-      "description": "Install the Gemini Code Assist support",
+      "description": "Install the Gemini Code Assist support (with SUSE configuration)",
       "default": true
     },
     "anthropicClaude": {
       "type": "boolean",
-      "description": "Install the Anthropic Claude support",
+      "description": "Install the Anthropic Claude support (with SUSE configuration)",
       "default": true
     }
   },

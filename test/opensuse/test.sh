@@ -57,6 +57,7 @@ check_option "$GEMINI" "Gemini allowed root" test "${CODER_AGENT_ALLOWED_ROOT:-}
 CLAUDE="${templateOption_anthropicClaude:-}"
 check_option "$CLAUDE" "Claude extension" hasExtension Anthropic.claude-code
 check_option "$CLAUDE" "Claude settings" test -f "$HOME/.claude/settings.json"
+check_option "$CLAUDE" "gcloud-login.sh" command -v gcloud-login.sh
 check_option "$CLAUDE" "Claude login prompt disabled" jq -e \
   'any(.mergedConfiguration.customizations.vscode[]?; .settings["claudeCode.disableLoginPrompt"] == true)' \
   merged-configuration.json
