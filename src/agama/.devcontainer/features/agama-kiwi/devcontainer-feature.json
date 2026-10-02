@@ -1,0 +1,21 @@
+{
+  "id": "agama-kiwi",
+  "version": "1.0.0",
+  "name": "Agama Kiwi",
+  "description": "Agama Live ISO development tools (VS Code extensions and settings, the packages are installed in the Dockerfile)",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "xml.fileAssociations": [
+          {
+            "pattern": "**/*.kiwi",
+            "systemId": "file:///usr/local/share/kiwi/kiwi.rnc"
+          }
+        ]
+      },
+      "extensions": [
+        "redhat.vscode-xml"
+      ]
+    }
+  }
+}

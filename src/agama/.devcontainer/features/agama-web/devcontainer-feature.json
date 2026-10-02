@@ -1,0 +1,22 @@
+{
+  "id": "agama-web",
+  "version": "1.0.0",
+  "name": "Agama Web",
+  "description": "Agama web frontend development tools (VS Code extensions and settings, the packages are installed in the Dockerfile)",
+  "mounts": [
+    {
+      "source": "/run/avahi-daemon",
+      "target": "/run/avahi-daemon",
+      "type": "bind"
+    }
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anseki.vscode-color",
+        "dbaeumer.vscode-eslint",
+        "christian-kohler.npm-intellisense"
+      ]
+    }
+  }
+}

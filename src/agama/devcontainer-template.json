@@ -1,0 +1,35 @@
+{
+  "id": "agama",
+  "version": "0.0.1",
+  "name": "Agama",
+  "description": "Development container for the Agama installer based on openSUSE Leap or openSUSE Tumbleweed.",
+  "documentationURL": "https://github.com/lslezak/suse-devcontainer/tree/main/src/agama",
+  "licenseURL": "https://github.com/lslezak/suse-devcontainer/blob/main/LICENSE",
+  "publisher": "Ladislav Slezák",
+  "options": {
+    "imageVariant": {
+      "type": "string",
+      "description": "openSUSE base system:",
+      "enum": ["leap:16.0", "tumbleweed"],
+      "default": "leap:16.0"
+    },
+    "agamaVariant": {
+      "type": "string",
+      "description": "Agama development environment:",
+      "enum": ["all-in-one", "base", "kiwi", "ruby", "rust", "web"],
+      "default": "all-in-one"
+    },
+    "googleGemini": {
+      "type": "boolean",
+      "description": "Install the Gemini Code Assist support (with SUSE configuration)",
+      "default": true
+    },
+    "anthropicClaude": {
+      "type": "boolean",
+      "description": "Install the Anthropic Claude support (with SUSE configuration)",
+      "default": true
+    }
+  },
+  "platforms": ["Any"],
+  "keywords": ["Agama", "installer", "openSUSE", "SUSE", "Leap", "Tumbleweed", "Gemini", "Claude"]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "agama-base",
+  "version": "1.0.0",
+  "name": "Agama Base",
+  "description": "Basic Agama development tools (VS Code extensions and settings, the packages are installed in the Dockerfile)"
+}

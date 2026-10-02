@@ -19,6 +19,20 @@ jobs:
             options: imageVariant=tumbleweed
           - template: opensuse
             options: googleGemini=false anthropicClaude=false
+          - template: agama
+            options: agamaVariant=all-in-one
+          - template: agama
+            options: agamaVariant=all-in-one imageVariant=tumbleweed
+          - template: agama
+            options: agamaVariant=base googleGemini=false anthropicClaude=false
+          - template: agama
+            options: agamaVariant=kiwi
+          - template: agama
+            options: agamaVariant=ruby
+          - template: agama
+            options: agamaVariant=rust
+          - template: agama
+            options: agamaVariant=web
     name: "${{ matrix.template }} (${{ matrix.options }})"
     steps:
       - uses: actions/checkout@v7
@@ -29,6 +43,10 @@ jobs:
 
       - name: "Install the devcontainer CLI"
         run: npm install -g @devcontainers/cli
+
+      # some Agama variants bind mount the host Avahi daemon directory
+      - name: "Create the Avahi daemon directory"
+        run: sudo mkdir -p /run/avahi-daemon
 
       # the template uses Podman specific options
       - name: "Smoke test"

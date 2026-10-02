@@ -1,0 +1,38 @@
+{
+  "id": "agama-all-in-one",
+  "version": "1.0.0",
+  "name": "Agama All-in-one",
+  "description": "Agama development tools for all components (VS Code extensions and settings, the packages are installed in the Dockerfile)",
+  "mounts": [
+    {
+      "source": "/run/avahi-daemon",
+      "target": "/run/avahi-daemon",
+      "type": "bind"
+    }
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "xml.fileAssociations": [
+          {
+            "pattern": "**/*.kiwi",
+            "systemId": "file:///usr/local/share/kiwi/kiwi.rnc"
+          }
+        ]
+      },
+      "extensions": [
+        "redhat.vscode-xml",
+        "anseki.vscode-color",
+        "dbaeumer.vscode-eslint",
+        "christian-kohler.npm-intellisense",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "Grafana.vscode-jsonnet",
+        "ms-vscode.cpptools-extension-pack",
+        "Shopify.ruby-lsp",
+        "kaiwood.endwise",
+        "pavlitsky.yard"
+      ]
+    }
+  }
+}

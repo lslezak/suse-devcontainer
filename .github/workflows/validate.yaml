@@ -18,11 +18,24 @@ jobs:
           validate-only: "true"
           base-path-to-templates: "./src"
 
-      - name: "Validate devcontainer-feature.json files"
+      - name: "Validate devcontainer-feature.json files (opensuse)"
         uses: devcontainers/action@v1
         with:
           validate-only: "true"
           base-path-to-features: "./src/opensuse/.devcontainer/features"
+
+      - name: "Validate devcontainer-feature.json files (agama)"
+        uses: devcontainers/action@v1
+        with:
+          validate-only: "true"
+          base-path-to-features: "./src/agama/.devcontainer/features"
+
+      # each template must contain its own copy of the shared features
+      - name: "Check the shared features are in sync"
+        run: |
+          for feature in gemini-true gemini-false claude-true claude-false; do
+            diff -r "src/opensuse/.devcontainer/features/$feature" "src/agama/.devcontainer/features/$feature"
+          done
 
       - name: "Check shell scripts"
         run: shellcheck -x test/*.sh test/*/*.sh src/*/.devcontainer/features/*/*.sh

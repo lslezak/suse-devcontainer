@@ -6,6 +6,7 @@ on [openSUSE](https://www.opensuse.org/).
 | Template                 | Description                                                                                        |
 | ------------------------ | -------------------------------------------------------------------------------------------------- |
 | [opensuse](src/opensuse) | openSUSE Leap 16.0 or Tumbleweed with common development tools, optional Gemini and Claude support |
+| [agama](src/agama)       | [Agama](https://github.com/agama-project/agama) installer development (Rust, Ruby, web, Kiwi)      |
 
 ## Usage
 
@@ -26,6 +27,11 @@ devcontainer templates apply --workspace-folder . \
 devcontainer templates apply --workspace-folder . \
   --template-id ghcr.io/lslezak/suse-devcontainer/opensuse \
   --template-args '{"googleGemini": "false", "anthropicClaude": "false"}'
+
+# Agama Rust backend development
+devcontainer templates apply --workspace-folder . \
+  --template-id ghcr.io/lslezak/suse-devcontainer/agama \
+  --template-args '{"agamaVariant": "rust"}'
 ```
 
 Then open the project in VS Code and run the _Dev Containers: Reopen in
@@ -41,23 +47,31 @@ Container_ command.
 
 ```text
 ├── src
-│   └── opensuse
-│       ├── devcontainer-template.json   # template metadata and options
-│       ├── NOTES.md                     # additional documentation
-│       └── .devcontainer                # files copied to the user project
-│           ├── devcontainer.json
-│           ├── Dockerfile
-│           └── features                 # optional AI code assistants
-│               ├── claude-false
-│               ├── claude-true
-│               ├── gemini-false
-│               └── gemini-true
+│   ├── opensuse
+│   │   ├── devcontainer-template.json   # template metadata and options
+│   │   ├── NOTES.md                     # additional documentation
+│   │   └── .devcontainer                # files copied to the user project
+│   │       ├── devcontainer.json
+│   │       ├── Dockerfile
+│   │       └── features                 # optional AI code assistants
+│   │           ├── claude-false
+│   │           ├── claude-true
+│   │           ├── gemini-false
+│   │           └── gemini-true
+│   └── agama                            # the same structure as opensuse
+│       └── .devcontainer
+│           └── features                 # plus the agama-<variant> features
+│               ├── agama-all-in-one
+│               ├── agama-base
+│               ├── ...
 └── test
     ├── smoke-test.sh                    # builds and tests a template
-    ├── opensuse
+    ├── agama
     │   └── test.sh                      # tests running inside the container
+    ├── opensuse
+    │   └── test.sh
     └── test-utils
-        └── test-utils.sh
+        └── test-utils.sh                # shared test functions
 ```
 
 Template options are referenced as `${templateOption:<option>}` in the template
@@ -67,6 +81,10 @@ The template options cannot add or remove VS Code extensions directly, the
 optional parts are implemented by local features. The option value selects the
 feature directory, e.g. `./features/gemini-${templateOption:googleGemini}`
 results in `./features/gemini-true` or `./features/gemini-false`.
+
+Each template must contain its own copy of the features. The shared Gemini and
+Claude features must be identical in all templates, this is checked by the
+[Validate](.github/workflows/validate.yaml) workflow.
 
 ## Testing
 

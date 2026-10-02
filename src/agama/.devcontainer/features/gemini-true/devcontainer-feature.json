@@ -1,0 +1,27 @@
+{
+  "id": "gemini-true",
+  "version": "1.0.0",
+  "name": "Google Gemini",
+  "description": "Installs the Google Gemini Code Assist support",
+  "containerEnv": {
+    // Gemini Code Assist's agent process restricts itself to a subtree of $HOME
+    // by default. Since the workspace lives under /workspaces it fails to start
+    // with "Workspace path is outside the allowed root directory". Explicitly
+    // allow using a different root.
+    "CODER_AGENT_ALLOWED_ROOT": "/workspaces"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // SUSE specific project
+        "geminicodeassist.project": "suse-gemini-code-assist",
+        // disable sending usage data
+        "geminicodeassist.enableTelemetry": false,
+        // suggest next edits
+        "geminicodeassist.inlineSuggestions.nextEditPredictions": true
+      },
+      "extensions": ["google.geminicodeassist"]
+    }
+  },
+  "postCreateCommand": "[ -e ~/.gemini/trustedFolders.json ] || install -D -m 644 /usr/local/share/devcontainer-gemini/trustedFolders.json ~/.gemini/trustedFolders.json"
+}
