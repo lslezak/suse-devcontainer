@@ -8,8 +8,8 @@ Development container based on openSUSE Leap or openSUSE Tumbleweed with common 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
 | imageVariant | openSUSE base system: | string | leap:16.0 |
-| googleGemini | Google Gemini: install the Gemini Code Assist extension and the ~/.gemini/trustedFolders.json file | boolean | true |
-| anthropicClaude | Anthropic Claude: install the Claude Code extension, the Google Cloud CLI and the ~/.claude/settings.json file | boolean | true |
+| googleGemini | Install the Gemini Code Assist support (with SUSE configuration) | boolean | true |
+| anthropicClaude | Install the Anthropic Claude support (with SUSE configuration) | boolean | true |
 
 ## Base system
 
