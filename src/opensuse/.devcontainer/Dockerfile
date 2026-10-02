@@ -15,6 +15,7 @@ ARG BASE_PACKAGES="bash-completion \
   gzip \
   jq \
   make \
+  npm-default \
   openssh-clients \
   patch \
   procps \
