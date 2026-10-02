@@ -1,4 +1,4 @@
-name: "Release Features, Templates & Generate Documentation"
+name: "Release Templates & Generate Documentation"
 on:
   workflow_dispatch:
 
@@ -12,18 +12,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v7
-
-      # the templates reference the features, publish them first,
-      # use a separate namespace to not conflict with the templates collection
-      - name: "Publish Features"
-        uses: devcontainers/action@v1
-        with:
-          publish-features: "true"
-          base-path-to-features: "./features"
-          features-namespace: "${{ github.repository }}/features"
-          generate-docs: "true"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Publish Templates"
         uses: devcontainers/action@v1
@@ -44,7 +32,7 @@ jobs:
           branch="automated-documentation-update-$GITHUB_RUN_ID"
           git checkout -b "$branch"
           message="Automated documentation update"
-          git add src/*/README.md features/*/README.md
+          git add src/*/README.md
           if git commit -m "$message [skip ci]"; then
             git push origin "$branch"
             gh pr create --title "$message" --body "$message"

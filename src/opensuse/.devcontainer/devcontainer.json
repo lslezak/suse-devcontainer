@@ -4,13 +4,14 @@
     "dockerfile": "Dockerfile"
   },
   // Optional AI code assistants, the "*-true" features install the VS Code
-  // extension and the configuration, the "*-false" features do nothing
-  // https://github.com/lslezak/suse-devcontainer/tree/main/features
+  // extension and the configuration, the "*-false" features do nothing.
+  // Note: local features must be located in the .devcontainer directory in the
+  // workspace, in VS Code do not store this configuration in the user data folder.
   "features": {
     // Install Google Gemini Code Assist support
-    "ghcr.io/lslezak/suse-devcontainer/features/gemini-${templateOption:googleGemini}:1": {},
+    "./features/gemini-${templateOption:googleGemini}": {},
     // Install Anthropic Claude Code support
-    "ghcr.io/lslezak/suse-devcontainer/features/claude-${templateOption:anthropicClaude}:1": {}
+    "./features/claude-${templateOption:anthropicClaude}": {}
   },
   "remoteUser": "vscode",
   "postCreateCommand": "git config --global --add safe.directory /workspaces",

@@ -1,4 +1,4 @@
-name: "Validate Features and Templates"
+name: "Validate Templates"
 on:
   workflow_dispatch:
   pull_request:
@@ -22,7 +22,7 @@ jobs:
         uses: devcontainers/action@v1
         with:
           validate-only: "true"
-          base-path-to-features: "./features"
+          base-path-to-features: "./src/opensuse/.devcontainer/features"
 
       - name: "Check shell scripts"
-        run: shellcheck -x test/*.sh test/*/*.sh features/*/install.sh
+        run: shellcheck -x test/*.sh test/*/*.sh src/*/.devcontainer/features/*/*.sh

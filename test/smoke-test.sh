@@ -6,10 +6,8 @@
 #
 # Options which are not specified use the default value from the
 # devcontainer-template.json file. The container engine can be changed via the
-# CONTAINER_ENGINE environment variable (default: podman). The features from the
-# "features" directory are used instead of the published ones, set the
-# USE_PUBLISHED_FEATURES environment variable to test the published features.
-# Requires the devcontainer CLI (npm install -g @devcontainers/cli) and jq.
+# CONTAINER_ENGINE environment variable (default: podman). Requires the
+# devcontainer CLI (npm install -g @devcontainers/cli) and jq.
 
 set -euo pipefail
 
@@ -66,16 +64,6 @@ if grep -r -q -F '${templateOption:' "$SRC_DIR"; then
   echo "Unresolved template options:" >&2
   grep -r -n -F '${templateOption:' "$SRC_DIR" >&2
   exit 1
-fi
-
-# use the local features instead of the published ones to test the current code,
-# local features must be located in the .devcontainer subdirectory
-if [ -z "${USE_PUBLISHED_FEATURES:-}" ]; then
-  FEATURES_REGISTRY="ghcr.io/lslezak/suse-devcontainer/features"
-  echo "(*) Using local features instead of ${FEATURES_REGISTRY}"
-  cp -R "${REPO_DIR}/features" "${SRC_DIR}/.devcontainer/features"
-  find "$SRC_DIR" -name devcontainer.json -print0 | xargs -0 \
-    sed -i -E "s#\"${FEATURES_REGISTRY//./\\.}/([^\":]+)(:[^\"]*)?\"#\"./features/\\1\"#g"
 fi
 
 # copy the tests to the workspace
