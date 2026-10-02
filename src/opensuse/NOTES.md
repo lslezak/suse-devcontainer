@@ -15,8 +15,8 @@ The `imageVariant` option selects the base image:
 | `anthropicClaude` | `Anthropic.claude-code` VS Code extension, `google-cloud-cli`, `~/.claude/settings.json`, disables the Claude Code login prompt |
 
 Both options are enabled by default. They are implemented by the
-[features](https://github.com/lslezak/suse-devcontainer-template/tree/main/features)
-published at `ghcr.io/lslezak/suse-devcontainer-template/features`, the option
+[features](https://github.com/lslezak/suse-devcontainer/tree/main/features)
+published at `ghcr.io/lslezak/suse-devcontainer/features`, the option
 value selects either the `*-true` feature or the no-op `*-false` feature.
 
 The configuration files are copied to the home directory only when they do not

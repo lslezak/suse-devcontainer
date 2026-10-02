@@ -15,16 +15,16 @@ to your project with the [devcontainer CLI](https://github.com/devcontainers/cli
 ```sh
 # openSUSE Leap 16.0 (default)
 devcontainer templates apply --workspace-folder . \
-  --template-id ghcr.io/lslezak/suse-devcontainer-template/opensuse
+  --template-id ghcr.io/lslezak/suse-devcontainer/opensuse
 
 # openSUSE Tumbleweed
 devcontainer templates apply --workspace-folder . \
-  --template-id ghcr.io/lslezak/suse-devcontainer-template/opensuse \
+  --template-id ghcr.io/lslezak/suse-devcontainer/opensuse \
   --template-args '{"imageVariant": "tumbleweed"}'
 
 # without the AI code assistants
 devcontainer templates apply --workspace-folder . \
-  --template-id ghcr.io/lslezak/suse-devcontainer-template/opensuse \
+  --template-id ghcr.io/lslezak/suse-devcontainer/opensuse \
   --template-args '{"googleGemini": "false", "anthropicClaude": "false"}'
 ```
 
@@ -58,7 +58,7 @@ Template options are referenced as `${templateOption:<option>}` in the template
 files, the value is substituted when the template is applied.
 
 The templates reference the features published to
-`ghcr.io/lslezak/suse-devcontainer-template/features/<feature-id>`. Local
+`ghcr.io/lslezak/suse-devcontainer/features/<feature-id>`. Local
 features (`./features/...`) cannot be used in templates, VS Code requires them
 to be located in the `.devcontainer` directory in the workspace, which does not
 work when the configuration is stored in the VS Code user data folder.
@@ -84,8 +84,8 @@ the published features.
    feature update the references in the templates.
 2. Run the [Release](.github/workflows/release.yaml) workflow manually from the
    GitHub Actions page. It publishes the features to
-   `ghcr.io/lslezak/suse-devcontainer-template/features/<feature-id>`, the
-   templates to `ghcr.io/lslezak/suse-devcontainer-template/<template-id>` and
+   `ghcr.io/lslezak/suse-devcontainer/features/<feature-id>`, the
+   templates to `ghcr.io/lslezak/suse-devcontainer/<template-id>` and
    creates a pull request with the updated documentation.
 3. Make the published packages public in the GitHub package settings (only
    after the first release).

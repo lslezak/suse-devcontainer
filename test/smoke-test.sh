@@ -71,7 +71,7 @@ fi
 # use the local features instead of the published ones to test the current code,
 # local features must be located in the .devcontainer subdirectory
 if [ -z "${USE_PUBLISHED_FEATURES:-}" ]; then
-  FEATURES_REGISTRY="ghcr.io/lslezak/suse-devcontainer-template/features"
+  FEATURES_REGISTRY="ghcr.io/lslezak/suse-devcontainer/features"
   echo "(*) Using local features instead of ${FEATURES_REGISTRY}"
   cp -R "${REPO_DIR}/features" "${SRC_DIR}/.devcontainer/features"
   find "$SRC_DIR" -name devcontainer.json -print0 | xargs -0 \

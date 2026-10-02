@@ -5,12 +5,12 @@
   },
   // Optional AI code assistants, the "*-true" features install the VS Code
   // extension and the configuration, the "*-false" features do nothing
-  // https://github.com/lslezak/suse-devcontainer-template/tree/main/features
+  // https://github.com/lslezak/suse-devcontainer/tree/main/features
   "features": {
     // Install Google Gemini Code Assist support
-    "ghcr.io/lslezak/suse-devcontainer-template/features/gemini-${templateOption:googleGemini}:1": {},
+    "ghcr.io/lslezak/suse-devcontainer/features/gemini-${templateOption:googleGemini}:1": {},
     // Install Anthropic Claude Code support
-    "ghcr.io/lslezak/suse-devcontainer-template/features/claude-${templateOption:anthropicClaude}:1": {}
+    "ghcr.io/lslezak/suse-devcontainer/features/claude-${templateOption:anthropicClaude}:1": {}
   },
   "remoteUser": "vscode",
   "postCreateCommand": "git config --global --add safe.directory /workspaces",

@@ -3,8 +3,8 @@
   "version": "0.0.3",
   "name": "openSUSE",
   "description": "Development container based on openSUSE Leap or openSUSE Tumbleweed with common development tools and a non-root user.",
-  "documentationURL": "https://github.com/lslezak/suse-devcontainer-template/tree/main/src/opensuse",
-  "licenseURL": "https://github.com/lslezak/suse-devcontainer-template/blob/main/LICENSE",
+  "documentationURL": "https://github.com/lslezak/suse-devcontainer/tree/main/src/opensuse",
+  "licenseURL": "https://github.com/lslezak/suse-devcontainer/blob/main/LICENSE",
   "publisher": "Ladislav Slezák",
   "options": {
     "imageVariant": {
