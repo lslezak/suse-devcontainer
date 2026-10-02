@@ -13,8 +13,14 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        // ------------------
+        // RUBY SERVICE EXTENSIONS
+        // ------------------
+        // Ruby support
         "Shopify.ruby-lsp",
+        // autocomplete Ruby block ending 
         "kaiwood.endwise",
+        // Generate Yardoc comments
         "pavlitsky.yard"
       ]
     }

@@ -21,16 +21,39 @@
         ]
       },
       "extensions": [
+        // ------------------
+        // LIVE ISO EXTENSIONS
+        // ------------------
+        // XML (*.kiwi) formatting support
         "redhat.vscode-xml",
+        // ------------------
+        // WEB FRONTEND EXTENSIONS
+        // ------------------
+        // interactive color picker
         "anseki.vscode-color",
+        // ESlint integration
         "dbaeumer.vscode-eslint",
+        // import autocompletion
         "christian-kohler.npm-intellisense",
+        // ------------------
+        // RUST BACKEND EXTENSIONS
+        // ------------------
+        // Rust support
         "rust-lang.rust-analyzer",
+        // *.toml support
         "tamasfe.even-better-toml",
+        // *.jsonnet support
         "Grafana.vscode-jsonnet",
+        // C++ support
         "ms-vscode.cpptools-extension-pack",
+        // ------------------
+        // RUBY SERVICE EXTENSIONS
+        // ------------------
+        // Ruby support
         "Shopify.ruby-lsp",
+        // autocomplete Ruby block ending 
         "kaiwood.endwise",
+        // Generate Yardoc comments
         "pavlitsky.yard"
       ]
     }

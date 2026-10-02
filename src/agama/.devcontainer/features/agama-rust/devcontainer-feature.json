@@ -13,9 +13,16 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        // ------------------
+        // RUST BACKEND EXTENSIONS
+        // ------------------
+        // Rust support
         "rust-lang.rust-analyzer",
+        // *.toml support
         "tamasfe.even-better-toml",
+        // *.jsonnet support
         "Grafana.vscode-jsonnet",
+        // C++ support
         "ms-vscode.cpptools-extension-pack"
       ]
     }

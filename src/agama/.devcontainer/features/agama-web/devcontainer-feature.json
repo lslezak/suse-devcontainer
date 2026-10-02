@@ -13,8 +13,14 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        // ------------------
+        // WEB FRONTEND EXTENSIONS
+        // ------------------
+        // interactive color picker
         "anseki.vscode-color",
+        // ESlint integration
         "dbaeumer.vscode-eslint",
+        // import autocompletion
         "christian-kohler.npm-intellisense"
       ]
     }
