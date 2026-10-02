@@ -1,4 +1,6 @@
 # The openSUSE base image, "leap:16.0" or "tumbleweed"
+# the tag is part of the template option value
+# hadolint ignore=DL3006
 FROM registry.opensuse.org/opensuse/${templateOption:imageVariant}
 
 # base packages
@@ -44,6 +46,8 @@ RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
     && zypper clean -a
 
 # Set up a non-root user (recommended for dev containers)
+# the user name is not sensitive data
+# hadolint ignore=DL3064
 ARG USERNAME=vscode
 RUN useradd -s /bin/bash --uid 1000 --gid users -m $USERNAME \
     && mkdir -p /etc/sudoers.d/ \

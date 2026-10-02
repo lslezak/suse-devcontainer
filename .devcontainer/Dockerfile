@@ -56,6 +56,8 @@ RUN export PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin \
     && pipx inject check-jsonschema json5
 
 # Set up a non-root user (recommended for dev containers)
+# the user name is not sensitive data
+# hadolint ignore=DL3064
 ARG USERNAME=vscode
 RUN useradd -s /bin/bash --uid 1000 --gid users -m $USERNAME \
     && mkdir -p /etc/sudoers.d/ \

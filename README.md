@@ -1,5 +1,9 @@
 # openSUSE Dev Container Templates
 
+[![Release Templates & Generate Documentation](https://github.com/lslezak/suse-devcontainer/actions/workflows/release.yaml/badge.svg)](https://github.com/lslezak/suse-devcontainer/actions/workflows/release.yaml)
+[![Test Templates](https://github.com/lslezak/suse-devcontainer/actions/workflows/test.yaml/badge.svg)](https://github.com/lslezak/suse-devcontainer/actions/workflows/test.yaml)
+[![Validate Templates](https://github.com/lslezak/suse-devcontainer/actions/workflows/validate.yaml/badge.svg)](https://github.com/lslezak/suse-devcontainer/actions/workflows/validate.yaml)
+
 [Dev Container Templates](https://containers.dev/implementors/templates/) based
 on [openSUSE](https://www.opensuse.org/).
 
