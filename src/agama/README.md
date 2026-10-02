@@ -7,8 +7,8 @@ Development container for the Agama installer based on openSUSE Leap or openSUSE
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| agamaVariant | Agama development environment: | string | all-in-one |
 | imageVariant | openSUSE base system: | string | leap:16.0 |
+| agamaVariant | Agama development environment: | string | all-in-one |
 | googleGemini | Install the Gemini Code Assist support (with SUSE configuration) | boolean | true |
 | anthropicClaude | Install the Anthropic Claude support (with SUSE configuration) | boolean | true |
 
