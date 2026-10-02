@@ -42,3 +42,10 @@ jobs:
 
       - name: "Check shell scripts"
         run: shellcheck -x test/*.sh test/*/*.sh src/*/.devcontainer/features/*/*.sh
+
+      # hadolint/hadolint-action skips the hidden .devcontainer directories
+      # in the recursive mode, run the hadolint image directly
+      - name: "Check Dockerfiles"
+        run: |
+          docker run --rm -v "$PWD:/work:ro" -w /work hadolint/hadolint:v2.15.1 \
+            /bin/hadolint --config .hadolint.yaml .devcontainer/Dockerfile src/*/.devcontainer/Dockerfile

@@ -1,0 +1,8 @@
+# the development images intentionally install the latest packages
+ignored:
+  # pin versions in zypper install
+  - DL3037
+  # pin versions in pip install
+  - DL3013
+  # pin versions in gem install
+  - DL3028
