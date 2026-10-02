@@ -40,6 +40,53 @@ Local file path parse error. Resolved path must be a child of the .devcontainer/
 If you do not want to commit the configuration to the project add the
 `.devcontainer` directory to the local `.git/info/exclude` file.
 
+### Tracking the configuration in a separate repository
+
+You can still keep the excluded `.devcontainer` directory under version control
+in its own Git repository, for example to share it between your machines.
+
+1. Exclude the directory from the project repository:
+
+   ```sh
+   echo ".devcontainer/" >> .git/info/exclude
+   ```
+
+2. Create a new repository in the `.devcontainer` directory and commit the
+   configuration:
+
+   ```sh
+   cd .devcontainer
+   git init -b main
+   git add .
+   git commit -m "Initial devcontainer configuration"
+   ```
+
+3. Create an empty repository at GitHub (do not add a README, license or
+   `.gitignore` file) and push the configuration there:
+
+   ```sh
+   git remote add origin git@github.com:<user>/<project>-devcontainer.git
+   git push -u origin main
+   ```
+
+   Alternatively use the [GitHub CLI](https://cli.github.com/) which creates the
+   repository, adds the remote and pushes in one step:
+
+   ```sh
+   gh repo create <project>-devcontainer --private --source . --push
+   ```
+
+To use the configuration in another checkout of the project clone it into the
+`.devcontainer` directory and exclude it again (the exclude file is local and
+not cloned):
+
+```sh
+git clone git@github.com:<user>/<project>.git
+cd <project>
+git clone git@github.com:<user>/<project>-devcontainer.git .devcontainer
+echo ".devcontainer/" >> .git/info/exclude
+```
+
 ## Customization
 
 - Add packages needed by your project to the `DEVEL_PACKAGES` argument in the
