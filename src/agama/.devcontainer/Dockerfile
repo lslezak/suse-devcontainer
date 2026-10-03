@@ -39,8 +39,8 @@ ARG BASE_PACKAGES="bash-completion \
   yq"
 
 # AI code assisting related packages, the agents usually run Bash or Python code
-# snippets, the AI specific packages are installed by the features referenced
-# in the devcontainer.json file
+# snippets, the AI specific packages are installed below or by the features
+# referenced in the devcontainer.json file
 ARG AI_PACKAGES="python3 python3-pip"
 
 # translations support
@@ -100,6 +100,32 @@ RUN case "$AGAMA_VARIANT" in \
 # Ruby language server
 RUN if [ "$AGAMA_VARIANT" = "ruby" ] || [ "$AGAMA_VARIANT" = "all-in-one" ]; then \
       gem install --no-format-exec ruby-lsp; \
+    fi
+
+# mDNS host name resolution via the host Avahi daemon, installed here and not
+# in the "mdns-true" feature (it only mounts the daemon directory), the feature
+# layers are not cached. When changing it update also the "mdns-*" feature in
+# the devcontainer.json file.
+ARG MDNS="${templateOption:mdns}"
+
+RUN if [ "$MDNS" = "true" ]; then \
+      zypper --non-interactive --gpg-auto-import-keys install --no-recommends nss-mdns \
+      && zypper clean -a; \
+    fi
+
+# Google Cloud CLI for accessing Claude via Vertex AI (x86_64 and aarch64 only).
+# Installed here and not in the "claude-true" feature, the Dockerfile layers are
+# cached while the feature layers are rebuilt every time. When changing it
+# update also the "claude-*" feature in the devcontainer.json file.
+ARG ANTHROPIC_CLAUDE="${templateOption:anthropicClaude}"
+
+# the standard repositories are disabled to have faster refresh
+RUN if [ "$ANTHROPIC_CLAUDE" = "true" ]; then \
+      zypper modifyrepo --all --disable \
+      && zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10 \
+      && zypper --non-interactive --gpg-auto-import-keys install --no-recommends google-cloud-cli \
+      && zypper clean -a \
+      && zypper modifyrepo --all --enable; \
     fi
 
 # additional packages, add your own here

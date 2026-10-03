@@ -2,7 +2,7 @@
   "id": "mdns-true",
   "version": "1.0.0",
   "name": "mDNS",
-  "description": "Resolves the *.local host names (mDNS) via the host Avahi daemon",
+  "description": "Resolves the *.local host names (mDNS) via the host Avahi daemon (the packages are installed in the Dockerfile)",
   // the Avahi daemon must run on the host, the container fails to start
   // when the /run/avahi-daemon directory does not exist
   "mounts": [

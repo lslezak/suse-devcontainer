@@ -34,8 +34,8 @@ ARG BASE_PACKAGES="bash-completion \
   yq"
 
 # AI code assisting related packages, the agents usually run Bash or Python code
-# snippets, the AI specific packages are installed by the features referenced
-# in the devcontainer.json file
+# snippets, the AI specific packages are installed below or by the features
+# referenced in the devcontainer.json file
 ARG AI_PACKAGES="python3 python3-pip"
 
 # Install the common packages, the layer is shared by all images built from
@@ -43,6 +43,21 @@ ARG AI_PACKAGES="python3 python3-pip"
 RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
     $BASE_PACKAGES $AI_PACKAGES \
     && zypper clean -a
+
+# Google Cloud CLI for accessing Claude via Vertex AI (x86_64 and aarch64 only).
+# Installed here and not in the "claude-true" feature, the Dockerfile layers are
+# cached while the feature layers are rebuilt every time. When changing it
+# update also the "claude-*" feature in the devcontainer.json file.
+ARG ANTHROPIC_CLAUDE="${templateOption:anthropicClaude}"
+
+# the standard repositories are disabled to have faster refresh
+RUN if [ "$ANTHROPIC_CLAUDE" = "true" ]; then \
+      zypper modifyrepo --all --disable \
+      && zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10 \
+      && zypper --non-interactive --gpg-auto-import-keys install --no-recommends google-cloud-cli \
+      && zypper clean -a \
+      && zypper modifyrepo --all --enable; \
+    fi
 
 # packages needed for developing your project, add your own here
 # (declared after the common layer, changing it does not invalidate that layer)

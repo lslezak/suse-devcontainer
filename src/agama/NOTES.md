@@ -27,9 +27,13 @@ development environment:
   `~/.gemini/trustedFolders.json`.
 - `anthropicClaude`: `Anthropic.claude-code` extension, `~/.claude/settings.json`
   (no login prompt) and `google-cloud-cli` (`x86_64` and `aarch64` only),
-  `gcloud-login.sh` runs when attaching to the container if not logged in yet.
+  run `gcloud-login.sh` to log in (a hint is printed when attaching).
 - The AI configuration is copied to the home directory only when missing, edit
   `.devcontainer/features/*-true` to change the defaults.
+- The packages for `mdns` or `anthropicClaude` are installed in the Dockerfile
+  (the feature layers are not cached), to change the option later update both
+  the `ARG` in `.devcontainer/Dockerfile` and the feature in
+  `.devcontainer/devcontainer.json`.
 - The home directory is a persistent volume, it survives container rebuilds.
 - Tuned for Podman, for Docker remove `runArgs` (`--userns=keep-id`) from
   `.devcontainer/devcontainer.json`.
