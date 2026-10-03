@@ -1,6 +1,6 @@
 {
   "id": "agama",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "name": "Agama",
   "description": "Development container for the Agama installer based on openSUSE Leap or openSUSE Tumbleweed.",
   "documentationURL": "https://github.com/lslezak/suse-devcontainer/tree/main/src/agama",
