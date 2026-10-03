@@ -38,9 +38,6 @@ ARG BASE_PACKAGES="bash-completion \
   xz \
   yq"
 
-# additional packages, add your own here
-ARG DEVEL_PACKAGES=""
-
 # AI code assisting related packages, the agents usually run Bash or Python code
 # snippets, the AI specific packages are installed by the features referenced
 # in the devcontainer.json file
@@ -100,8 +97,18 @@ RUN case "$AGAMA_VARIANT" in \
       *) echo "Unknown Agama variant: $AGAMA_VARIANT" >&2; exit 1 ;; \
     esac \
     && zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-downgrade \
-      $BASE_PACKAGES $DEVEL_PACKAGES $AI_PACKAGES $VARIANT_PACKAGES \
+      $BASE_PACKAGES $AI_PACKAGES $VARIANT_PACKAGES \
     && zypper clean -a
+
+# additional packages, add your own here
+# (declared after the common layer, changing it does not invalidate that layer)
+ARG DEVEL_PACKAGES=""
+
+RUN if [ -n "$DEVEL_PACKAGES" ]; then \
+      zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-downgrade \
+        $DEVEL_PACKAGES \
+      && zypper clean -a; \
+    fi
 
 # Ruby language server
 RUN if [ "$AGAMA_VARIANT" = "ruby" ] || [ "$AGAMA_VARIANT" = "all-in-one" ]; then \

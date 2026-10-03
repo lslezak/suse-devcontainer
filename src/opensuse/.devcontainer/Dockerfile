@@ -33,18 +33,26 @@ ARG BASE_PACKAGES="bash-completion \
   xz \
   yq"
 
-# packages needed for developing your project, add your own here
-ARG DEVEL_PACKAGES=""
-
 # AI code assisting related packages, the agents usually run Bash or Python code
 # snippets, the AI specific packages are installed by the features referenced
 # in the devcontainer.json file
 ARG AI_PACKAGES="python3 python3-pip"
 
-# Install all packages at once
+# Install the common packages, the layer is shared by all images built from
+# this template
 RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
-    $BASE_PACKAGES $DEVEL_PACKAGES $AI_PACKAGES \
+    $BASE_PACKAGES $AI_PACKAGES \
     && zypper clean -a
+
+# packages needed for developing your project, add your own here
+# (declared after the common layer, changing it does not invalidate that layer)
+ARG DEVEL_PACKAGES=""
+
+RUN if [ -n "$DEVEL_PACKAGES" ]; then \
+      zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
+        $DEVEL_PACKAGES \
+      && zypper clean -a; \
+    fi
 
 # Set up a non-root user (recommended for dev containers)
 # the user name is not sensitive data
