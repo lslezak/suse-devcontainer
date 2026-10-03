@@ -5,7 +5,7 @@
   },
   "remoteUser": "vscode",
   // If you do not configure $HOME directory using a dotfiles repository you can simply uncomment this
-  // "postCreateCommand": "git config --global --add safe.directory /workspaces",
+  "postCreateCommand": "git config --global --add safe.directory /workspaces",
   "remoteEnv": {
     // Gemini Code Assist's agent process restricts itself to a subtree of $HOME
     // by default. Since the workspace lives under /workspaces it fails to start

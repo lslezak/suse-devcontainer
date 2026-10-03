@@ -10,6 +10,7 @@ ARG BASE_PACKAGES="bash-completion \
   diffutils \
   findutils \
   gawk \
+  gh \
   git \
   glibc-locale-base \
   gpg2 \

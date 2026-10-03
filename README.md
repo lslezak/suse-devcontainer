@@ -21,7 +21,10 @@ devcontainer templates apply --workspace-folder . \
 ```
 
 See the template documentation for the options. In VS Code select **Add
-configuration to workspace**, the user data folder is not supported.
+configuration to workspace**, the user data folder is not supported. Then insert
+either the `ghcr.io/lslezak/suse-devcontainer/opensuse` or
+`ghcr.io/lslezak/suse-devcontainer/agama` value depending which container you
+want to use.
 
 ## Development
 
