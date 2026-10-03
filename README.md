@@ -20,6 +20,12 @@ devcontainer templates apply --workspace-folder . \
   --template-args '{"imageVariant": "tumbleweed"}'
 ```
 
+```sh
+devcontainer templates apply --workspace-folder . \
+  --template-id ghcr.io/lslezak/suse-devcontainer/agama \
+  --template-args '{"imageVariant": "leap:16.0"}'
+```
+
 See the template documentation for the options. In VS Code select **Add
 configuration to workspace**, the user data folder is not supported. Then insert
 either the `ghcr.io/lslezak/suse-devcontainer/opensuse` or

@@ -3,7 +3,7 @@
 # just a helper script to login to the correct project
 
 # already logged in
-if gcloud auth application-default print-access-token >/dev/null 2>&1; then
+if [ -e ~/.config/gcloud/application_default_credentials.json ]; then
   echo "Already logged in to Google Cloud"
   exit 0
 fi
