@@ -100,6 +100,11 @@ RUN case "$AGAMA_VARIANT" in \
       $BASE_PACKAGES $AI_PACKAGES $VARIANT_PACKAGES \
     && zypper clean -a
 
+# Ruby language server
+RUN if [ "$AGAMA_VARIANT" = "ruby" ] || [ "$AGAMA_VARIANT" = "all-in-one" ]; then \
+      gem install --no-format-exec ruby-lsp; \
+    fi
+
 # additional packages, add your own here
 # (declared after the common layer, changing it does not invalidate that layer)
 ARG DEVEL_PACKAGES=""
@@ -108,11 +113,6 @@ RUN if [ -n "$DEVEL_PACKAGES" ]; then \
       zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-downgrade \
         $DEVEL_PACKAGES \
       && zypper clean -a; \
-    fi
-
-# Ruby language server
-RUN if [ "$AGAMA_VARIANT" = "ruby" ] || [ "$AGAMA_VARIANT" = "all-in-one" ]; then \
-      gem install --no-format-exec ruby-lsp; \
     fi
 
 # Set up a non-root user (recommended for dev containers)

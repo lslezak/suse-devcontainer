@@ -40,7 +40,8 @@ development environment:
 - `googleGemini`: `google.geminicodeassist` extension and
   `~/.gemini/trustedFolders.json`.
 - `anthropicClaude`: `Anthropic.claude-code` extension, `~/.claude/settings.json`
-  (no login prompt) and `google-cloud-cli` (`x86_64` and `aarch64` only).
+  (no login prompt) and `google-cloud-cli` (`x86_64` and `aarch64` only),
+  `gcloud-login.sh` runs on container creation when not logged in yet.
 - The AI configuration is copied to the home directory only when missing, edit
   `.devcontainer/features/*-true` to change the defaults.
 - The home directory is a persistent volume, it survives container rebuilds.
