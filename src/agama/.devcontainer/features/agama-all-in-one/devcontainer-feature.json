@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "name": "Agama All-in-one",
   "description": "Agama development tools for all components (VS Code extensions and settings, the packages are installed in the Dockerfile)",
-  "mounts": [
-    {
-      "source": "/run/avahi-daemon",
-      "target": "/run/avahi-daemon",
-      "type": "bind"
-    }
-  ],
   "customizations": {
     "vscode": {
       "settings": {

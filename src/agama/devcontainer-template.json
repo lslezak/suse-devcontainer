@@ -19,6 +19,11 @@
       "enum": ["all-in-one", "base", "kiwi", "ruby", "rust", "web"],
       "default": "all-in-one"
     },
+    "mdns": {
+      "type": "boolean",
+      "description": "Resolve the *.local host names (mDNS) via the host Avahi daemon",
+      "default": false
+    },
     "googleGemini": {
       "type": "boolean",
       "description": "Install the Gemini Code Assist support (with SUSE configuration)",

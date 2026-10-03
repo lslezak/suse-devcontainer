@@ -9,6 +9,7 @@ Development container for the Agama installer based on openSUSE Leap or openSUSE
 |-----|-----|-----|-----|
 | imageVariant | openSUSE base system: | string | leap:16.0 |
 | agamaVariant | Agama development environment: | string | all-in-one |
+| mdns | Resolve the .local host names (mDNS) via the host Avahi daemon | boolean | true |
 | googleGemini | Install the Gemini Code Assist support (with SUSE configuration) | boolean | true |
 | anthropicClaude | Install the Anthropic Claude support (with SUSE configuration) | boolean | true |
 
@@ -17,26 +18,26 @@ Development container for the Agama installer based on openSUSE Leap or openSUSE
 The `agamaVariant` option selects the [Agama](https://github.com/agama-project/agama)
 development environment:
 
-| Value        | Packages                                     | VS Code extensions                     | Avahi mount |
-| ------------ | -------------------------------------------- | -------------------------------------- | ----------- |
-| `all-in-one` | all below                                    | all below                              | yes         |
-| `base`       | `gettext-tools`                              | generic only                           | no          |
-| `kiwi`       | `python3-kiwi`, `bats`                       | XML (with the Kiwi schema)             | no          |
-| `ruby`       | Ruby development, `ruby-lsp` gem, `nss-mdns` | Ruby LSP, endwise, YARD                | yes         |
-| `rust`       | Rust and C/C++ development, `nss-mdns`       | rust-analyzer, TOML, Jsonnet, C++      | yes         |
-| `web`        | `nodejs`, `npm`, `nss-mdns`                  | color picker, ESLint, npm IntelliSense | yes         |
+| Value        | Packages                         | VS Code extensions                     |
+| ------------ | -------------------------------- | -------------------------------------- |
+| `all-in-one` | all below                        | all below                              |
+| `base`       | `gettext-tools`                  | generic only                           |
+| `kiwi`       | `python3-kiwi`, `bats`           | XML (with the Kiwi schema)             |
+| `ruby`       | Ruby development, `ruby-lsp` gem | Ruby LSP, endwise, YARD                |
+| `rust`       | Rust and C/C++ development       | rust-analyzer, TOML, Jsonnet, C++      |
+| `web`        | `nodejs`, `npm`                  | color picker, ESLint, npm IntelliSense |
 
 - To switch the variant later change both `AGAMA_VARIANT` in
   `.devcontainer/Dockerfile` and the `agama-<variant>` feature in
   `.devcontainer/devcontainer.json`.
-- The host `/run/avahi-daemon` is mounted for resolving `.local` names (mDNS).
-  Remove the mount from the `agama-<variant>` feature if Avahi does not run on
-  the host, the container fails to start otherwise.
 
 ## Notes
 
 - `imageVariant`: `registry.opensuse.org/opensuse/leap:16.0` or
   `registry.opensuse.org/opensuse/tumbleweed` base image.
+- `mdns`: `nss-mdns` and the host `/run/avahi-daemon` mount for resolving the
+  `.local` host names, Avahi must run on the host, the container fails to start
+  otherwise.
 - `googleGemini`: `google.geminicodeassist` extension and
   `~/.gemini/trustedFolders.json`.
 - `anthropicClaude`: `Anthropic.claude-code` extension, `~/.claude/settings.json`

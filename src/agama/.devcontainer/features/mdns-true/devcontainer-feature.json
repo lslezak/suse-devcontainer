@@ -1,0 +1,15 @@
+{
+  "id": "mdns-true",
+  "version": "1.0.0",
+  "name": "mDNS",
+  "description": "Resolves the *.local host names (mDNS) via the host Avahi daemon",
+  // the Avahi daemon must run on the host, the container fails to start
+  // when the /run/avahi-daemon directory does not exist
+  "mounts": [
+    {
+      "source": "/run/avahi-daemon",
+      "target": "/run/avahi-daemon",
+      "type": "bind"
+    }
+  ]
+}

@@ -24,7 +24,7 @@ jobs:
           - template: agama
             options: agamaVariant=all-in-one imageVariant=tumbleweed
           - template: agama
-            options: agamaVariant=base googleGemini=false anthropicClaude=false
+            options: agamaVariant=base mdns=false googleGemini=false anthropicClaude=false
           - template: agama
             options: agamaVariant=kiwi
           - template: agama
@@ -44,7 +44,7 @@ jobs:
       - name: "Install the devcontainer CLI"
         run: npm install -g @devcontainers/cli
 
-      # some Agama variants bind mount the host Avahi daemon directory
+      # the mDNS feature bind mounts the host Avahi daemon directory
       - name: "Create the Avahi daemon directory"
         run: sudo mkdir -p /run/avahi-daemon
 

@@ -46,9 +46,6 @@ ARG AI_PACKAGES="python3 python3-pip"
 # translations support
 ARG GETTEXT_PACKAGES="gettext-tools"
 
-# mDNS hostname resolution via the host Avahi daemon
-ARG MDNS_PACKAGES="nss-mdns"
-
 # web frontend
 ARG NODE_PACKAGES="\
   nodejs \
@@ -88,12 +85,12 @@ ARG KIWI_PACKAGES="\
 # Install all packages at once, the package lists are split intentionally
 # hadolint ignore=SC2086
 RUN case "$AGAMA_VARIANT" in \
-      all-in-one) VARIANT_PACKAGES="$GETTEXT_PACKAGES $MDNS_PACKAGES $NODE_PACKAGES $RUBY_PACKAGES $RUST_PACKAGES $KIWI_PACKAGES" ;; \
+      all-in-one) VARIANT_PACKAGES="$GETTEXT_PACKAGES $NODE_PACKAGES $RUBY_PACKAGES $RUST_PACKAGES $KIWI_PACKAGES" ;; \
       base) VARIANT_PACKAGES="$GETTEXT_PACKAGES" ;; \
       kiwi) VARIANT_PACKAGES="$KIWI_PACKAGES" ;; \
-      ruby) VARIANT_PACKAGES="$GETTEXT_PACKAGES $MDNS_PACKAGES $RUBY_PACKAGES" ;; \
-      rust) VARIANT_PACKAGES="$GETTEXT_PACKAGES $MDNS_PACKAGES $RUST_PACKAGES" ;; \
-      web) VARIANT_PACKAGES="$GETTEXT_PACKAGES $MDNS_PACKAGES $NODE_PACKAGES" ;; \
+      ruby) VARIANT_PACKAGES="$GETTEXT_PACKAGES $RUBY_PACKAGES" ;; \
+      rust) VARIANT_PACKAGES="$GETTEXT_PACKAGES $RUST_PACKAGES" ;; \
+      web) VARIANT_PACKAGES="$GETTEXT_PACKAGES $NODE_PACKAGES" ;; \
       *) echo "Unknown Agama variant: $AGAMA_VARIANT" >&2; exit 1 ;; \
     esac \
     && zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-downgrade \

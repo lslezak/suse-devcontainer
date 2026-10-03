@@ -1,0 +1,6 @@
+{
+  "id": "mdns-false",
+  "version": "1.0.0",
+  "name": "mDNS (disabled)",
+  "description": "Placeholder used when the mDNS support is disabled, it does not install anything"
+}

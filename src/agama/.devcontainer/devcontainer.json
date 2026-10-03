@@ -9,6 +9,9 @@
     // VS Code extensions and settings for the selected Agama development
     // environment, the packages are installed in the Dockerfile
     "./features/agama-${templateOption:agamaVariant}": {},
+    // Optional mDNS support, resolves the .local host names via the host Avahi
+    // daemon, the "mdns-false" feature does nothing
+    "./features/mdns-${templateOption:mdns}": {},
     // Optional AI code assistants, the "*-true" features install the VS Code
     // extension and the configuration, the "*-false" features do nothing.
     // Install Google Gemini Code Assist support

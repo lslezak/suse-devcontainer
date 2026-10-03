@@ -14,12 +14,12 @@ echo -e "\nAgama variant: $VARIANT"
 
 # the expected components for each variant
 case "$VARIANT" in
-  all-in-one) COMPONENTS="gettext mdns web rust ruby kiwi" ;;
+  all-in-one) COMPONENTS="gettext web rust ruby kiwi" ;;
   base) COMPONENTS="gettext" ;;
   kiwi) COMPONENTS="kiwi" ;;
-  ruby) COMPONENTS="gettext mdns ruby" ;;
-  rust) COMPONENTS="gettext mdns rust" ;;
-  web) COMPONENTS="gettext mdns web" ;;
+  ruby) COMPONENTS="gettext ruby" ;;
+  rust) COMPONENTS="gettext rust" ;;
+  web) COMPONENTS="gettext web" ;;
   *) COMPONENTS="" ;;
 esac
 check "known variant" test -n "$COMPONENTS"
@@ -31,7 +31,7 @@ hasComponent() {
 
 checkOption "$(hasComponent gettext)" "msgfmt" command -v msgfmt
 
-MDNS=$(hasComponent mdns)
+MDNS="${templateOption_mdns:-}"
 checkOption "$MDNS" "nss-mdns" rpm -q nss-mdns
 checkOption "$MDNS" "Avahi mount" grep -q " /run/avahi-daemon " /proc/self/mounts
 
