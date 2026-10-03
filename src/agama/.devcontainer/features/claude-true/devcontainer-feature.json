@@ -11,5 +11,7 @@
       "extensions": ["Anthropic.claude-code"]
     }
   },
-  "postCreateCommand": "([ -e ~/.claude/settings.json ] || install -D -m 644 /usr/local/share/devcontainer-claude/settings.json ~/.claude/settings.json) && gcloud-login.sh"
+  "postCreateCommand": "[ -e ~/.claude/settings.json ] || install -D -m 644 /usr/local/share/devcontainer-claude/settings.json ~/.claude/settings.json",
+  // interactive, not run by "devcontainer up --skip-post-attach" in the tests
+  "postAttachCommand": "gcloud-login.sh"
 }

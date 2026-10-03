@@ -73,8 +73,9 @@ cp -R "${REPO_DIR}/test/${TEMPLATE_ID}/." "$TEST_DIR"
 cp "${REPO_DIR}/test/test-utils/test-utils.sh" "$TEST_DIR"
 
 echo "(*) Building the dev container"
+# skip the interactive postAttachCommand (Google Cloud login)
 devcontainer up --docker-path "$CONTAINER_ENGINE" --id-label "$ID_LABEL" \
-  --workspace-folder "$SRC_DIR"
+  --workspace-folder "$SRC_DIR" --skip-post-attach
 
 # save the merged configuration (including the features) for the tests
 devcontainer read-configuration --docker-path "$CONTAINER_ENGINE" --id-label "$ID_LABEL" \

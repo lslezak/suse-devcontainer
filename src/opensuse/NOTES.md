@@ -11,7 +11,7 @@ Add the packages needed by your project to `DEVEL_PACKAGES` in
   `~/.gemini/trustedFolders.json`.
 - `anthropicClaude`: `Anthropic.claude-code` extension, `~/.claude/settings.json`
   (no login prompt) and `google-cloud-cli` (`x86_64` and `aarch64` only),
-  `gcloud-login.sh` runs on container creation when not logged in yet.
+  `gcloud-login.sh` runs when attaching to the container if not logged in yet.
 - The AI configuration is copied to the home directory only when missing, edit
   `.devcontainer/features/*-true` to change the defaults.
 - The home directory is a persistent volume, it survives container rebuilds.
