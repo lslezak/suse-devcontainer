@@ -9,7 +9,7 @@ Development container for the Agama installer based on openSUSE Leap or openSUSE
 |-----|-----|-----|-----|
 | imageVariant | openSUSE base system: | string | leap:16.0 |
 | agamaVariant | Agama development environment: | string | all-in-one |
-| mdns | Resolve the .local host names (mDNS) via the host Avahi daemon | boolean | true |
+| mdns | Resolve the *.local host names (mDNS) via the host Avahi daemon | boolean | false |
 | googleGemini | Install the Gemini Code Assist support (with SUSE configuration) | boolean | true |
 | anthropicClaude | Install the Anthropic Claude support (with SUSE configuration) | boolean | true |
 
