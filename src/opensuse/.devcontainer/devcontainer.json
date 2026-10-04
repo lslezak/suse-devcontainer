@@ -1,4 +1,6 @@
 {
+  // To exclude the .devcontainer directory from the git repository run this command:
+  //    echo ".devcontainer/" >> .git/info/exclude
   "name": "openSUSE ${templateOption:imageVariant}",
   "build": {
     "dockerfile": "Dockerfile"

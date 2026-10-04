@@ -13,5 +13,5 @@
   },
   "postCreateCommand": "[ -e ~/.claude/settings.json ] || install -D -m 644 /usr/local/share/devcontainer-claude/settings.json ~/.claude/settings.json",
   // only print a hint, the login is interactive
-  "postAttachCommand": "[ -e ~/.config/gcloud/application_default_credentials.json ] || echo 'Not logged in to Google Cloud, run gcloud-login.sh'"
+  "postAttachCommand": "if [ -e ~/.config/gcloud/application_default_credentials.json ]; then printf '\\033[32mGoogle Cloud credentials present\\033[0m\\n'; else printf '\\033[33mNot logged in to Google Cloud, run gcloud-login.sh\\033[0m\\n'; fi"
 }

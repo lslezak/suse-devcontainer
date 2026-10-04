@@ -12,6 +12,20 @@ on [openSUSE](https://www.opensuse.org/).
 | [opensuse](src/opensuse) | openSUSE Leap 16.0 or Tumbleweed with development tools, optional Gemini and Claude support |
 | [agama](src/agama)       | [Agama](https://github.com/agama-project/agama) installer development (Rust, Ruby, web, Kiwi) |
 
+## Advantages
+
+Developing in a containerized sandbox provides many useful advantages:
+
+- All needed development tools are automatically installed.
+- Ensures all developers have the same environment.
+- You can develop from different version or from a completely different
+  distribution (or even from Windows using WSL containers).
+- The sandbox is useful when running AI code assisting tools.
+- If you mess up the development system you can just rebuild the container and
+  start from scratch.
+- Want to develop on openSUSE Tumbleweed instead of Leap? Just switch the base
+  system image and rebuild the container!
+
 ## Usage
 
 ### Devcontainer CLI
@@ -43,11 +57,33 @@ devcontainer templates apply --workspace-folder . \
 
 ### Visual Studio Code
 
-See the template documentation for the options. In VS Code select **Add
-configuration to workspace**, the user data folder is not supported. Then insert
-either the `ghcr.io/lslezak/suse-devcontainer/opensuse` or
-`ghcr.io/lslezak/suse-devcontainer/agama` value depending which container you
-want to use.
+1. From the command palette (`F1` or `Ctrl+Shift+P`) select **Dev Containers:
+   Add Dev Container Configuration Files**
+2. Select **Add configuration to workspace** (the user data folder is not
+   supported, the installation would fail there).
+3. Then insert either the `ghcr.io/lslezak/suse-devcontainer/opensuse` or
+   `ghcr.io/lslezak/suse-devcontainer/agama` name of the template depending
+   which container you want to use.
+4. Select the base product used for the new container, either openSUSE Leap 16.0
+   or openSUSE Tumbleweed.
+5. If you selected the Agama container then select which Agama components you
+   want to develop. The full (all-in-one) container image is quite big, almost
+   3GB. If you want to work only on a particular Agama part (like Web frontend)
+   you can select only that part and save some disk space.
+6. Select any additional features you want to install
+   1. mDNS support (the Avahi service must be running on the host )
+   2. Google Gemini support with SUSE specific configuration
+   3. Anthropic Claude support with SUSE specific configuration
+7. Then you can select some community features, but be careful, many of them
+   support only few Linux distributions. Quite often they are written only for
+   Ubuntu or Fedora, but not for openSUSE. (They usually install additional
+   packages using `apt` or `dnf` and do not support `zypper`.)
+8. Then the container files will be generated to the `.devcontainer` folder. You
+   can inspect them or possibly modify to fit your needs.
+9. After opening the folder in VSCode click **Open in Container** in the bottom
+   right corner or manually select **Dev Containers: Rebuild and Open in
+   Container** from the command palette.
+10. Enjoy your openSUSE Dev Container and have a lot of fun! 😃
 
 ## Keeping the configuration out of the project
 

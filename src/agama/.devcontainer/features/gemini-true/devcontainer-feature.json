@@ -17,8 +17,8 @@
         "geminicodeassist.project": "suse-gemini-code-assist",
         // disable sending usage data
         "geminicodeassist.enableTelemetry": false,
-        // suggest next edits
-        "geminicodeassist.inlineSuggestions.nextEditPredictions": true
+        // personally I find that rather annoying...
+        "geminicodeassist.inlineSuggestions.nextEditPredictions": false
       },
       "extensions": ["google.geminicodeassist"]
     }
