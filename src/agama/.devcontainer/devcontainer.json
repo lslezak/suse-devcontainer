@@ -85,6 +85,8 @@
         "RVSmartPorting.rpm-spec-ext",
         // YAML support
         "redhat.vscode-yaml",
+        // systemd *.service files
+        "hangxingliu.vscode-systemd-support",
         // ------------------
         // MARKDOWN SUPPORT
         // ------------------
