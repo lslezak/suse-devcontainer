@@ -1,4 +1,5 @@
 {
+  // This file was generated from the "ghcr.io/lslezak/suse-devcontainer/agama" template.
   // To exclude the .devcontainer directory from the git repository run this command:
   //    echo ".devcontainer/" >> .git/info/exclude
   "name": "Agama ${templateOption:agamaVariant} (openSUSE ${templateOption:imageVariant})",
