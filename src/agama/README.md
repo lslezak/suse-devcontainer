@@ -7,7 +7,7 @@ Development container for the Agama installer based on openSUSE Leap or openSUSE
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| imageVariant | openSUSE base system: | string | leap:16.0 |
+| imageVariant | openSUSE base system: | string | leap:16.1 |
 | agamaVariant | Agama development environment: | string | all-in-one |
 | mdns | Resolve the *.local host names (mDNS) via the host Avahi daemon | boolean | false |
 | googleGemini | Install the Gemini Code Assist support (with SUSE configuration) | boolean | true |
