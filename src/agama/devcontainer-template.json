@@ -1,6 +1,6 @@
 {
   "id": "agama",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "name": "Agama",
   "description": "Development container for the Agama installer based on openSUSE Leap or openSUSE Tumbleweed.",
   "documentationURL": "https://github.com/lslezak/suse-devcontainer/tree/main/src/agama",
@@ -10,8 +10,8 @@
     "imageVariant": {
       "type": "string",
       "description": "openSUSE base system:",
-      "enum": ["leap:16.0", "tumbleweed"],
-      "default": "leap:16.0"
+      "enum": ["leap:16.1", "leap:16.0", "tumbleweed"],
+      "default": "leap:16.1"
     },
     "agamaVariant": {
       "type": "string",

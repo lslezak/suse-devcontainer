@@ -55,18 +55,32 @@
         // ------------------
         // GENERIC EXTENSIONS
         // ------------------
+        // hightlight bug IDs, bug preview on hover
+        "lslezak.bug-id",
+        // syntax highlighting for the *.changes files
+        "lslezak.rpm-changes",
         // spellchecker
         "streetsidesoftware.code-spell-checker",
         // load indentation style from .editorconfig files
         "EditorConfig.EditorConfig",
+        // GitHub Actions integration
+        "github.vscode-github-actions",
+        // gettext *.po support
+        "mrorz.language-gettext",
         // prettier autoformatter
         "esbenp.prettier-vscode",
         // shell programming
         "mads-hartmann.bash-ide-vscode",
         // Makefile support
         "ms-vscode.makefile-tools",
-        // GitHub Actions integration
-        "github.vscode-github-actions",
+        // collect TODO, FIXME...
+        "Gruntfuggly.todo-tree",
+        // RPM *.spec support
+        "RVSmartPorting.rpm-spec-ext",
+        // YAML support
+        "redhat.vscode-yaml",
+        // systemd *.service files
+        "hangxingliu.vscode-systemd-support",
         // ------------------
         // MARKDOWN SUPPORT
         // ------------------
@@ -76,7 +90,6 @@
         "bierner.markdown-emoji",
         // Markdown editing (automatic TOC, table reformatting,...)
         "yzhang.markdown-all-in-one"
-        // the AI code assist extensions are installed by the features above
       ]
     }
   }
