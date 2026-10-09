@@ -56,7 +56,10 @@
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
         // disable all Copilot AI features
-        "chat.disableAIFeatures": true
+        "chat.disableAIFeatures": true,
+        "[rpm-changes]": {
+          "editor.rulers": [68]
+        }
       },
       "extensions": [
         // ------------------
