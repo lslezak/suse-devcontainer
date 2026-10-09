@@ -1,5 +1,4 @@
-# The openSUSE base image, "leap:16.0" or "tumbleweed"
-# the tag is part of the template option value
+# The openSUSE base image, "leap:16.1" or "tumbleweed"
 # hadolint ignore=DL3006
 FROM registry.opensuse.org/opensuse/${templateOption:imageVariant}
 
@@ -38,25 +37,25 @@ ARG BASE_PACKAGES="bash-completion \
 # referenced in the devcontainer.json file
 ARG AI_PACKAGES="python3 python3-pip"
 
+# Disable the openH.264 repo to have faster refresh
+RUN zypper modifyrepo --disable openSUSE:repo-openh264
+
 # Install the common packages, the layer is shared by all images built from
 # this template
 RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
     $BASE_PACKAGES $AI_PACKAGES \
     && zypper clean -a
 
-# Google Cloud CLI for accessing Claude via Vertex AI (x86_64 and aarch64 only).
-# Installed here and not in the "claude-true" feature, the Dockerfile layers are
-# cached while the feature layers are rebuilt every time. When changing it
-# update also the "claude-*" feature in the devcontainer.json file.
+# Install Google Cloud CLI for accessing Claude via Vertex AI
 ARG ANTHROPIC_CLAUDE="${templateOption:anthropicClaude}"
 
-# the standard repositories are disabled to have faster refresh
+# disable the OSS repo to have faster refresh
 RUN if [ "$ANTHROPIC_CLAUDE" = "true" ]; then \
-      zypper modifyrepo --all --disable \
+      zypper modifyrepo --disable openSUSE:repo-oss \
       && zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10 \
       && zypper --non-interactive --gpg-auto-import-keys install --no-recommends google-cloud-cli \
       && zypper clean -a \
-      && zypper modifyrepo --all --enable; \
+      && zypper modifyrepo --enable openSUSE:repo-oss; \
     fi
 
 # packages needed for developing your project, add your own here
@@ -70,7 +69,6 @@ RUN if [ -n "$DEVEL_PACKAGES" ]; then \
     fi
 
 # Set up a non-root user (recommended for dev containers)
-# the user name is not sensitive data
 # hadolint ignore=DL3064
 ARG USERNAME=vscode
 RUN useradd -s /bin/bash --uid 1000 --gid users -m $USERNAME \

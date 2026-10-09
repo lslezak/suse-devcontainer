@@ -1,5 +1,4 @@
-# The openSUSE base image, "leap:16.0" or "tumbleweed"
-# the tag is part of the template option value
+# The openSUSE base image, "leap:16.1" or "tumbleweed"
 # hadolint ignore=DL3006
 FROM registry.opensuse.org/opensuse/${templateOption:imageVariant}
 
@@ -38,9 +37,7 @@ ARG BASE_PACKAGES="bash-completion \
   xz \
   yq"
 
-# AI code assisting related packages, the agents usually run Bash or Python code
-# snippets, the AI specific packages are installed below or by the features
-# referenced in the devcontainer.json file
+# Install Google Cloud CLI for accessing Claude via Vertex AI
 ARG AI_PACKAGES="python3 python3-pip"
 
 # translations support
@@ -82,7 +79,10 @@ ARG KIWI_PACKAGES="\
   bats \
   python3-kiwi"
 
-# Install all packages at once, the package lists are split intentionally
+# Disable the openH.264 repo to have faster refresh
+RUN zypper modifyrepo --disable openSUSE:repo-openh264
+
+# Install all packages at once
 # hadolint ignore=SC2086
 RUN case "$AGAMA_VARIANT" in \
       all-in-one) VARIANT_PACKAGES="$GETTEXT_PACKAGES $NODE_PACKAGES $RUBY_PACKAGES $RUST_PACKAGES $KIWI_PACKAGES" ;; \
@@ -102,10 +102,7 @@ RUN if [ "$AGAMA_VARIANT" = "ruby" ] || [ "$AGAMA_VARIANT" = "all-in-one" ]; the
       gem install --no-format-exec ruby-lsp; \
     fi
 
-# mDNS host name resolution via the host Avahi daemon, installed here and not
-# in the "mdns-true" feature (it only mounts the daemon directory), the feature
-# layers are not cached. When changing it update also the "mdns-*" feature in
-# the devcontainer.json file.
+# mDNS host name resolution via the host Avahi daemon
 ARG MDNS="${templateOption:mdns}"
 
 RUN if [ "$MDNS" = "true" ]; then \
@@ -113,19 +110,16 @@ RUN if [ "$MDNS" = "true" ]; then \
       && zypper clean -a; \
     fi
 
-# Google Cloud CLI for accessing Claude via Vertex AI (x86_64 and aarch64 only).
-# Installed here and not in the "claude-true" feature, the Dockerfile layers are
-# cached while the feature layers are rebuilt every time. When changing it
-# update also the "claude-*" feature in the devcontainer.json file.
+# Install Google Cloud CLI for accessing Claude via Vertex AI
 ARG ANTHROPIC_CLAUDE="${templateOption:anthropicClaude}"
 
-# the standard repositories are disabled to have faster refresh
+# disable the OSS repo to have faster refresh
 RUN if [ "$ANTHROPIC_CLAUDE" = "true" ]; then \
-      zypper modifyrepo --all --disable \
+      zypper modifyrepo --disable openSUSE:repo-oss \
       && zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10 \
       && zypper --non-interactive --gpg-auto-import-keys install --no-recommends google-cloud-cli \
       && zypper clean -a \
-      && zypper modifyrepo --all --enable; \
+      && zypper modifyrepo --enable openSUSE:repo-oss; \
     fi
 
 # additional packages, add your own here
@@ -139,7 +133,6 @@ RUN if [ -n "$DEVEL_PACKAGES" ]; then \
     fi
 
 # Set up a non-root user (recommended for dev containers)
-# the user name is not sensitive data
 # hadolint ignore=DL3064
 ARG USERNAME=vscode
 RUN useradd -s /bin/bash --uid 1000 --gid users -m $USERNAME \
