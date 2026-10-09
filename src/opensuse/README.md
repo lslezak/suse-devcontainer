@@ -7,7 +7,7 @@ Development container based on openSUSE Leap or openSUSE Tumbleweed with common 
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| imageVariant | openSUSE base system: | string | leap:16.0 |
+| imageVariant | openSUSE base system: | string | leap:16.1 |
 | googleGemini | Install the Gemini Code Assist support (with SUSE configuration) | boolean | true |
 | anthropicClaude | Install the Anthropic Claude support (with SUSE configuration) | boolean | true |
 
