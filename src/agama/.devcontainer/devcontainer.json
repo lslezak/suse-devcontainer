@@ -58,7 +58,7 @@
         // disable all Copilot AI features
         "chat.disableAIFeatures": true,
         "[rpm-changes]": {
-          "editor.rulers": [68]
+          "editor.rulers": [67]
         }
       },
       "extensions": [
