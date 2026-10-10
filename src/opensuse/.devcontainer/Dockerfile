@@ -56,7 +56,7 @@ RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
 ARG ANTHROPIC_CLAUDE="${templateOption:anthropicClaude}"
 
 # Temporarily disable the distribution repos to have faster refresh
-# hadolint ignore=SC1091
+# hadolint ignore=SC1091,SC2086
 RUN if [ "$ANTHROPIC_CLAUDE" = "true" ]; then \
       . /etc/os-release \
       && if [ "$ID" = "opensuse-tumbleweed" ]; then \
