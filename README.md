@@ -7,10 +7,15 @@
 [Dev Container Templates](https://containers.dev/implementors/templates/) based
 on [openSUSE](https://www.opensuse.org/).
 
-| Template                 | Description                                                                                 |
-| ------------------------ | ------------------------------------------------------------------------------------------- |
-| [opensuse](src/opensuse) | openSUSE Leap 16.0 or Tumbleweed with development tools, optional Gemini and Claude support |
-| [agama](src/agama)       | [Agama](https://github.com/agama-project/agama) installer development (Rust, Ruby, web, Kiwi) |
+| Template                 | Description                                                               |
+| ------------------------ | ------------------------------------------------------------------------- |
+| [opensuse](src/opensuse) | openSUSE Leap or Tumbleweed with development tools,                       |
+| [agama](src/agama)       | openSUSE + [Agama][Agama] installer development (Rust, Ruby, React, Kiwi) |
+
+[Agama]: https://github.com/agama-project/agama
+
+For both it is possible to enable optional Gemini and Claude support with SUSE default
+authentication configuration.
 
 ## Advantages
 
@@ -28,18 +33,20 @@ Developing in a containerized sandbox provides many useful advantages:
 
 ## Usage
 
+The dev container can be either used with Devcontainer CLI or in Visual Studio
+Code.
+
 ### Devcontainer CLI
 
 Install the [devcontainer CLI](https://github.com/devcontainers/cli) from npm
 (requires Node.js), the `devcontainer` command is installed to `~/.local/bin`:
 
 ```sh
-sudo zypper install nodejs npm
+sudo zypper install npm-default
 npm install --global --prefix ~/.local @devcontainers/cli
 ```
 
-Alternatively run it without installing via `npx @devcontainers/cli` or in VS
-Code use the **Dev Containers: Install devcontainer CLI** command.
+Alternatively run it without installing via `npx @devcontainers/cli`.
 
 Apply a template in the current directory:
 
@@ -52,7 +59,7 @@ devcontainer templates apply --workspace-folder . \
 ```sh
 devcontainer templates apply --workspace-folder . \
   --template-id ghcr.io/lslezak/suse-devcontainer/agama \
-  --template-args '{"imageVariant": "leap:16.0"}'
+  --template-args '{"imageVariant": "leap:16.1", "agamaVariant": "all-in-one"}'
 ```
 
 ### Visual Studio Code
@@ -64,20 +71,20 @@ devcontainer templates apply --workspace-folder . \
 3. Then insert either the `ghcr.io/lslezak/suse-devcontainer/opensuse` or
    `ghcr.io/lslezak/suse-devcontainer/agama` name of the template depending
    which container you want to use.
-4. Select the base product used for the new container, either openSUSE Leap 16.0
+4. Select the base product used for the new container, either openSUSE Leap
    or openSUSE Tumbleweed.
 5. If you selected the Agama container then select which Agama components you
    want to develop. The full (all-in-one) container image is quite big, almost
-   3GB. If you want to work only on a particular Agama part (like Web frontend)
-   you can select only that part and save some disk space.
+   3GB. If you want to work only on a particular Agama part (like the Web
+   frontend) you can select only that part and save some disk space.
 6. Select any additional features you want to install
    1. mDNS support (the Avahi service must be running on the host )
    2. Google Gemini support with SUSE specific configuration
    3. Anthropic Claude support with SUSE specific configuration
 7. Then you can select some community features, but be careful, many of them
    support only few Linux distributions. Quite often they are written only for
-   Ubuntu or Fedora, but not for openSUSE. (They usually install additional
-   packages using `apt` or `dnf` and do not support `zypper`.)
+   Ubuntu or Fedora and do not support openSUSE. (They usually install
+   additional packages using `apt` or `dnf` without `zypper` support.)
 8. Then the container files will be generated to the `.devcontainer` folder. You
    can inspect them or possibly modify to fit your needs.
 9. After opening the folder in VSCode click **Open in Container** in the bottom
