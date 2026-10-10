@@ -48,4 +48,4 @@ jobs:
       - name: "Check Dockerfiles"
         run: |
           docker run --rm -v "$PWD:/work:ro" -w /work hadolint/hadolint:v2.15.1 \
-            /bin/hadolint --config .hadolint.yaml .devcontainer/Dockerfile src/*/.devcontainer/Dockerfile
+            /bin/hadolint --config .hadolint.yaml src/*/.devcontainer/Dockerfile
