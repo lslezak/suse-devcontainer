@@ -80,7 +80,13 @@ ARG KIWI_PACKAGES="\
   python3-kiwi"
 
 # Disable the openH.264 repo to have faster refresh
-RUN zypper modifyrepo --disable openSUSE:repo-openh264
+# hadolint ignore=SC1091
+RUN . /etc/os-release \
+    && if [ "$ID" = "opensuse-tumbleweed" ]; then \
+      zypper modifyrepo --disable repo-openh264; \
+    else \
+      zypper modifyrepo --disable openSUSE:repo-openh264; \
+    fi
 
 # Install all packages at once
 # hadolint ignore=SC2086
@@ -113,13 +119,20 @@ RUN if [ "$MDNS" = "true" ]; then \
 # Install Google Cloud CLI for accessing Claude via Vertex AI
 ARG ANTHROPIC_CLAUDE="${templateOption:anthropicClaude}"
 
-# disable the OSS repo to have faster refresh
+# Temporarily disable the distribution repos to have faster refresh
+# hadolint ignore=SC1091
 RUN if [ "$ANTHROPIC_CLAUDE" = "true" ]; then \
-      zypper modifyrepo --disable openSUSE:repo-oss \
+      . /etc/os-release \
+      && if [ "$ID" = "opensuse-tumbleweed" ]; then \
+        REPOS="repo-oss repo-update"; \
+      else \
+        REPOS="openSUSE:repo-oss"; \
+      fi \
+      && zypper modifyrepo --disable $REPOS \
       && zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10 \
       && zypper --non-interactive --gpg-auto-import-keys install --no-recommends google-cloud-cli \
       && zypper clean -a \
-      && zypper modifyrepo --enable openSUSE:repo-oss; \
+      && zypper modifyrepo --enable $REPOS; \
     fi
 
 # additional packages, add your own here
