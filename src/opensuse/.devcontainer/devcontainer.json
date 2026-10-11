@@ -2,6 +2,7 @@
   // This file was generated from the "ghcr.io/lslezak/suse-devcontainer/opensuse" template.
   // To exclude the .devcontainer directory from the git repository run this command:
   //    echo ".devcontainer/" >> .git/info/exclude
+  // See more details in https://containers.dev/overview
   "name": "openSUSE ${templateOption:imageVariant}",
   "build": {
     "dockerfile": "Dockerfile"
