@@ -46,7 +46,7 @@ workspace).
 Exclude it locally and optionally track it in a separate repository:
 
 ```sh
-echo ".devcontainer/" >> .git/info/exclude
+echo "/.devcontainer/" >> .git/info/exclude
 cd .devcontainer
 git init -b main && git add . && git commit -m "Dev container configuration"
 gh repo create <project>-devcontainer --private --source . --push
@@ -56,7 +56,7 @@ To restore it in another checkout:
 
 ```sh
 git clone git@github.com:<user>/<project>-devcontainer.git .devcontainer
-echo ".devcontainer/" >> .git/info/exclude
+echo "/.devcontainer/" >> .git/info/exclude
 ```
 
 
