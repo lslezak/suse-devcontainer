@@ -52,27 +52,9 @@ RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
     $BASE_PACKAGES $AI_PACKAGES \
     && zypper clean -a
 
-# Install Google Cloud CLI for accessing Claude via Vertex AI
-ARG ANTHROPIC_CLAUDE="${templateOption:anthropicClaude}"
-
-# Temporarily disable the distribution repos to have faster refresh
-# hadolint ignore=SC1091,SC2086
-RUN if [ "$ANTHROPIC_CLAUDE" = "true" ]; then \
-      . /etc/os-release \
-      && if [ "$ID" = "opensuse-tumbleweed" ]; then \
-        REPOS="repo-oss repo-update"; \
-      else \
-        REPOS="openSUSE:repo-oss"; \
-      fi \
-      && zypper modifyrepo --disable $REPOS \
-      && zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10 \
-      && zypper --non-interactive --gpg-auto-import-keys install --no-recommends google-cloud-cli \
-      && zypper clean -a \
-      && zypper modifyrepo --enable $REPOS; \
-    fi
-
-# packages needed for developing your project, add your own here
-# (declared after the common layer, changing it does not invalidate that layer)
+# packages needed for developing your project, add your own here (declared after
+# the common layer, changing it does not invalidate that layer and allows
+# sharing the base packages with multiple containers)
 ARG DEVEL_PACKAGES=""
 
 RUN if [ -n "$DEVEL_PACKAGES" ]; then \

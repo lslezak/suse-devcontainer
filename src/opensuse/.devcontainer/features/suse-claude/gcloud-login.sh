@@ -10,5 +10,5 @@ fi
 
 # login to Vertex
 if ! gcloud auth application-default login --project vertex-ai-206179; then
-  echo "Google Cloud login failed, run gcloud-login.sh later"
+  echo "Google Cloud login failed, run gcloud-login.sh later again"
 fi

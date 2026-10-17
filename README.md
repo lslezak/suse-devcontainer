@@ -33,8 +33,35 @@ Developing in a containerized sandbox provides many useful advantages:
 
 ## Usage
 
-The dev container can be either used with Devcontainer CLI or in Visual Studio
-Code.
+The dev container can be either used in Visual Studio Code or with the
+Devcontainer CLI.
+
+### Visual Studio Code
+
+1. From the command palette (`F1` or `Ctrl+Shift+P`) select **Dev Containers:
+   Add Dev Container Configuration Files**
+2. Select **Add configuration to workspace** (the user data folder is not
+   supported, the installation would fail there).
+3. Then insert either the `ghcr.io/lslezak/suse-devcontainer/opensuse` or
+   `ghcr.io/lslezak/suse-devcontainer/agama` name of the template depending
+   which container you want to use.
+4. Select the base product used for the new container, either openSUSE Leap
+   or openSUSE Tumbleweed.
+5. If you selected the Agama container then select which Agama components you
+   want to develop. The full (all-in-one) container image is quite big, almost
+   3GB. If you want to work only on a particular Agama part (like the Web
+   frontend) you can select only that part and save some disk space.
+6. Then you can select some community features, but be careful, many of them
+   support only few Linux distributions. Quite often they are written only for
+   Ubuntu or Fedora and do not support openSUSE. (They usually install
+   additional packages using `apt` or `dnf` without `zypper` support.)
+   It's recommended to just skip this without selecting any additional features.
+7. Then the container files will be generated to the `.devcontainer` folder. You
+   can inspect them or possibly modify to fit your needs.
+8. After opening the folder in VSCode click **Open in Container** in the bottom
+   right corner or manually select **Dev Containers: Rebuild and Open in
+   Container** from the command palette.
+9. Enjoy your openSUSE Dev Container and have a lot of fun! 😃
 
 ### Devcontainer CLI
 
@@ -62,36 +89,6 @@ devcontainer templates apply --workspace-folder . \
   --template-args '{"imageVariant": "leap:16.1", "agamaVariant": "all-in-one"}'
 ```
 
-### Visual Studio Code
-
-1. From the command palette (`F1` or `Ctrl+Shift+P`) select **Dev Containers:
-   Add Dev Container Configuration Files**
-2. Select **Add configuration to workspace** (the user data folder is not
-   supported, the installation would fail there).
-3. Then insert either the `ghcr.io/lslezak/suse-devcontainer/opensuse` or
-   `ghcr.io/lslezak/suse-devcontainer/agama` name of the template depending
-   which container you want to use.
-4. Select the base product used for the new container, either openSUSE Leap
-   or openSUSE Tumbleweed.
-5. If you selected the Agama container then select which Agama components you
-   want to develop. The full (all-in-one) container image is quite big, almost
-   3GB. If you want to work only on a particular Agama part (like the Web
-   frontend) you can select only that part and save some disk space.
-6. Select any additional features you want to install
-   1. mDNS support (the Avahi service must be running on the host )
-   2. Google Gemini support with SUSE specific configuration
-   3. Anthropic Claude support with SUSE specific configuration
-7. Then you can select some community features, but be careful, many of them
-   support only few Linux distributions. Quite often they are written only for
-   Ubuntu or Fedora and do not support openSUSE. (They usually install
-   additional packages using `apt` or `dnf` without `zypper` support.)
-8. Then the container files will be generated to the `.devcontainer` folder. You
-   can inspect them or possibly modify to fit your needs.
-9. After opening the folder in VSCode click **Open in Container** in the bottom
-   right corner or manually select **Dev Containers: Rebuild and Open in
-   Container** from the command palette.
-10. Enjoy your openSUSE Dev Container and have a lot of fun! 😃
-
 ## Keeping the configuration out of the project
 
 Exclude it locally and optionally track it in a separate repository:
@@ -114,8 +111,6 @@ echo "/.devcontainer/" >> .git/info/exclude
 
 - Template options are substituted for `${templateOption:<option>}` in the
   template files.
-- Optional parts are local features selected by the option value, e.g.
-  `./features/gemini-${templateOption:googleGemini}`.
 - Each template has its own copy of the features, the shared Gemini and Claude
   features must be identical (checked by the
   [Validate](.github/workflows/validate.yaml) workflow).
