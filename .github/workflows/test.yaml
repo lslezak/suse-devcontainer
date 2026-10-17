@@ -14,11 +14,11 @@ jobs:
       matrix:
         include:
           - template: opensuse
+            options: imageVariant=leap:16.1
+          - template: opensuse
             options: imageVariant=leap:16.0
           - template: opensuse
             options: imageVariant=tumbleweed
-          - template: opensuse
-            options: googleGemini=false anthropicClaude=false
           - template: agama
             options: agamaVariant=all-in-one
           - template: agama

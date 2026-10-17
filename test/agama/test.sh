@@ -7,7 +7,7 @@ cd "$(dirname "$0")" || exit 1
 source test-utils.sh
 
 checkBaseSystem
-checkAIAssistants
+checkAIAssistants "${templateOption_googleGemini:-}" "${templateOption_anthropicClaude:-}"
 
 VARIANT="${templateOption_agamaVariant:-}"
 echo -e "\nAgama variant: $VARIANT"

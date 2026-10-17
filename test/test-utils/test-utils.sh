@@ -82,14 +82,15 @@ checkBaseSystem() {
   done
 }
 
-# check the optional AI code assistants
+# check the AI code assistants
+# checkAIAssistants <gemini enabled> <claude enabled>
 checkAIAssistants() {
-  local gemini="${templateOption_googleGemini:-}"
+  local gemini="${1:-}"
   checkOption "$gemini" "Gemini extension" hasExtension google.geminicodeassist
   checkOption "$gemini" "Gemini trusted folders" test -f "$HOME/.gemini/trustedFolders.json"
   checkOption "$gemini" "Gemini allowed root" test "${CODER_AGENT_ALLOWED_ROOT:-}" = /workspaces
 
-  local claude="${templateOption_anthropicClaude:-}"
+  local claude="${2:-}"
   checkOption "$claude" "Claude extension" hasExtension Anthropic.claude-code
   checkOption "$claude" "Claude settings" test -f "$HOME/.claude/settings.json"
   checkOption "$claude" "gcloud-login.sh" command -v gcloud-login.sh

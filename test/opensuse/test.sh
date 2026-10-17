@@ -7,6 +7,7 @@ cd "$(dirname "$0")" || exit 1
 source test-utils.sh
 
 checkBaseSystem
-checkAIAssistants
+# the AI assistant features are always installed
+checkAIAssistants true true
 
 reportResults
