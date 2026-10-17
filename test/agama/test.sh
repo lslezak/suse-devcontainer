@@ -10,53 +10,30 @@ checkBaseSystem
 # the AI assistant features are always installed
 checkAIAssistants true true
 
-VARIANT="${templateOption_agamaVariant:-}"
-echo -e "\nAgama variant: $VARIANT"
-
-# the expected components for each variant
-case "$VARIANT" in
-  all-in-one) COMPONENTS="gettext web rust ruby kiwi" ;;
-  base) COMPONENTS="gettext" ;;
-  kiwi) COMPONENTS="kiwi" ;;
-  ruby) COMPONENTS="gettext ruby" ;;
-  rust) COMPONENTS="gettext rust" ;;
-  web) COMPONENTS="gettext web" ;;
-  *) COMPONENTS="" ;;
-esac
-check "known variant" test -n "$COMPONENTS"
-
-# shellcheck disable=SC2317 # called indirectly via check
-hasComponent() {
-  [[ " $COMPONENTS " == *" $1 "* ]] && echo true || echo false
-}
-
-checkOption "$(hasComponent gettext)" "msgfmt" command -v msgfmt
+# all components are always installed
+check "msgfmt" command -v msgfmt
 
 # the mDNS feature is always installed
 check "nss-mdns" rpm -q nss-mdns
 check "Avahi mount" grep -q " /run/avahi-daemon " /proc/self/mounts
 
-WEB=$(hasComponent web)
 for cmd in node npm; do
-  checkOption "$WEB" "$cmd" command -v "$cmd"
+  check "$cmd" command -v "$cmd"
 done
-checkOption "$WEB" "ESLint extension" hasExtension dbaeumer.vscode-eslint
+check "ESLint extension" hasExtension dbaeumer.vscode-eslint
 
-RUST=$(hasComponent rust)
 for cmd in cargo rustc cargo-audit jsonnet; do
-  checkOption "$RUST" "$cmd" command -v "$cmd"
+  check "$cmd" command -v "$cmd"
 done
-checkOption "$RUST" "rust-analyzer extension" hasExtension rust-lang.rust-analyzer
+check "rust-analyzer extension" hasExtension rust-lang.rust-analyzer
 
-RUBY=$(hasComponent ruby)
-checkOption "$RUBY" "ruby-lsp" command -v ruby-lsp
-checkOption "$RUBY" "Ruby LSP extension" hasExtension Shopify.ruby-lsp
+check "ruby-lsp" command -v ruby-lsp
+check "Ruby LSP extension" hasExtension Shopify.ruby-lsp
 
-KIWI=$(hasComponent kiwi)
 for cmd in kiwi-ng bats; do
-  checkOption "$KIWI" "$cmd" command -v "$cmd"
+  check "$cmd" command -v "$cmd"
 done
-checkOption "$KIWI" "Kiwi schema" test -f /usr/local/share/kiwi/kiwi.rnc
-checkOption "$KIWI" "XML extension" hasExtension redhat.vscode-xml
+check "Kiwi schema" test -f /usr/local/share/kiwi/kiwi.rnc
+check "XML extension" hasExtension redhat.vscode-xml
 
 reportResults

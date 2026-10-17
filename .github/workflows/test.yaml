@@ -20,19 +20,9 @@ jobs:
           - template: opensuse
             options: imageVariant=tumbleweed
           - template: agama
-            options: agamaVariant=all-in-one
+            options: imageVariant=leap:16.1
           - template: agama
-            options: agamaVariant=all-in-one imageVariant=tumbleweed
-          - template: agama
-            options: agamaVariant=base
-          - template: agama
-            options: agamaVariant=kiwi
-          - template: agama
-            options: agamaVariant=ruby
-          - template: agama
-            options: agamaVariant=rust
-          - template: agama
-            options: agamaVariant=web
+            options: imageVariant=tumbleweed
     name: "${{ matrix.template }} (${{ matrix.options }})"
     steps:
       - uses: actions/checkout@v7
