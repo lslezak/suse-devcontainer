@@ -36,7 +36,7 @@ jobs:
       # each template must contain its own copy of the shared features
       - name: "Check the shared features are in sync"
         run: |
-          for feature in gemini-true gemini-false claude-true claude-false; do
+          for feature in suse-gemini suse-claude; do
             diff -r "src/opensuse/.devcontainer/features/$feature" "src/agama/.devcontainer/features/$feature"
           done
 

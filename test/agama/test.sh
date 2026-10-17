@@ -7,7 +7,8 @@ cd "$(dirname "$0")" || exit 1
 source test-utils.sh
 
 checkBaseSystem
-checkAIAssistants "${templateOption_googleGemini:-}" "${templateOption_anthropicClaude:-}"
+# the AI assistant features are always installed
+checkAIAssistants true true
 
 VARIANT="${templateOption_agamaVariant:-}"
 echo -e "\nAgama variant: $VARIANT"
@@ -31,9 +32,9 @@ hasComponent() {
 
 checkOption "$(hasComponent gettext)" "msgfmt" command -v msgfmt
 
-MDNS="${templateOption_mdns:-}"
-checkOption "$MDNS" "nss-mdns" rpm -q nss-mdns
-checkOption "$MDNS" "Avahi mount" grep -q " /run/avahi-daemon " /proc/self/mounts
+# the mDNS feature is always installed
+check "nss-mdns" rpm -q nss-mdns
+check "Avahi mount" grep -q " /run/avahi-daemon " /proc/self/mounts
 
 WEB=$(hasComponent web)
 for cmd in node npm; do

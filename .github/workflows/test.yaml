@@ -24,7 +24,7 @@ jobs:
           - template: agama
             options: agamaVariant=all-in-one imageVariant=tumbleweed
           - template: agama
-            options: agamaVariant=base mdns=false googleGemini=false anthropicClaude=false
+            options: agamaVariant=base
           - template: agama
             options: agamaVariant=kiwi
           - template: agama
