@@ -2,6 +2,13 @@
 # hadolint ignore=DL3006
 FROM registry.opensuse.org/opensuse/${templateOption:imageVariant}
 
+# whether delete the libzypp cache after installing packages
+# false - keep the caches, the image builds faster but it is slightly bigger
+# true - the image is slightly smaller, but takes much more time to build
+# (the value is exported so it is used also by the features)
+ARG REPO_CLEANUP="false"
+ENV REPO_CLEANUP=$REPO_CLEANUP
+
 # base packages
 ARG BASE_PACKAGES="bash-completion \
   command-not-found \
@@ -32,11 +39,6 @@ ARG BASE_PACKAGES="bash-completion \
   xz \
   yq"
 
-# AI code assisting related packages, the agents usually run Bash or Python code
-# snippets, the AI specific packages are installed below or by the features
-# referenced in the devcontainer.json file
-ARG AI_PACKAGES="python3 python3-pip"
-
 # Disable the openH.264 repo to have faster refresh
 # hadolint ignore=SC1091
 RUN . /etc/os-release \
@@ -49,8 +51,8 @@ RUN . /etc/os-release \
 # Install the common packages, the layer is shared by all images built from
 # this template
 RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
-    $BASE_PACKAGES $AI_PACKAGES \
-    && zypper clean -a
+    $BASE_PACKAGES \
+    && if [ "$REPO_CLEANUP" = "true" ]; then zypper clean -a; fi
 
 # packages needed for developing your project, add your own here (declared after
 # the common layer, changing it does not invalidate that layer and allows
@@ -60,7 +62,7 @@ ARG DEVEL_PACKAGES=""
 RUN if [ -n "$DEVEL_PACKAGES" ]; then \
       zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
         $DEVEL_PACKAGES \
-      && zypper clean -a; \
+      && if [ "$REPO_CLEANUP" = "true" ]; then zypper clean -a; fi; \
     fi
 
 # Set up a non-root user (recommended for dev containers)

@@ -3,25 +3,27 @@
   // To exclude the .devcontainer directory from the git repository run this command:
   //    echo "/.devcontainer/" >> .git/info/exclude
   // See more details in https://containers.dev/overview
-  "name": "Agama ${templateOption:agamaVariant} (openSUSE ${templateOption:imageVariant})",
+  "name": "Agama",
   "build": {
     "dockerfile": "Dockerfile"
   },
-  // Note: local features must be located in the .devcontainer directory in the
-  // workspace, in VS Code do not store this configuration in the user data folder.
+  // Install optional support for the AI code assistants,
+  // comment out the ones which you do not use
   "features": {
-    // VS Code extensions and settings for the selected Agama development
-    // environment, the packages are installed in the Dockerfile
-    "./features/agama-${templateOption:agamaVariant}": {},
-    // Optional mDNS support, resolves the .local host names via the host Avahi
-    // daemon, the "mdns-false" feature does nothing
-    "./features/mdns-${templateOption:mdns}": {},
-    // Optional AI code assistants, the "*-true" features install the VS Code
-    // extension and the configuration, the "*-false" features do nothing.
-    // Install Google Gemini Code Assist support
-    "./features/gemini-${templateOption:googleGemini}": {},
-    // Install Anthropic Claude Code support
-    "./features/claude-${templateOption:anthropicClaude}": {}
+    // Install packages and VSCode extensions for the Live ISO development
+    "./features/agama-kiwi": {},
+    // Install packages and VSCode extensions for the Ruby service development (backend)
+    "./features/agama-ruby": {},
+    // Install packages and VSCode extensions for the Web server development (backend)
+    "./features/agama-rust": {},
+    // Install packages and VSCode extensions for the Web UI development (frontend)
+    "./features/agama-web": {},
+    // Install Google Gemini Code Assist support with SUSE specific config
+    "./features/suse-gemini": {},
+    // Install Anthropic Claude Code support with SUSE specific config
+    "./features/suse-claude": {},
+    // Optional mDNS support, resolves the *.local host names via the host Avahi daemon
+    "./features/mdns": {}
   },
   "remoteUser": "vscode",
   "postCreateCommand": "git config --global --add safe.directory /workspaces",
@@ -66,7 +68,7 @@
         // ------------------
         // GENERIC EXTENSIONS
         // ------------------
-        // hightlight bug IDs, bug preview on hover
+        // highlight bug IDs, bug preview on hover
         "lslezak.bug-id",
         // syntax highlighting for the *.changes files
         "lslezak.rpm-changes",
@@ -78,7 +80,7 @@
         "github.vscode-github-actions",
         // gettext *.po support
         "mrorz.language-gettext",
-        // prettier autoformatter
+        // prettier autoformatter for JS, TS, YAML, JSON, Markdown...
         "esbenp.prettier-vscode",
         // shell programming
         "mads-hartmann.bash-ide-vscode",

@@ -12,27 +12,6 @@
       "description": "openSUSE base system:",
       "enum": ["leap:16.1", "leap:16.0", "tumbleweed"],
       "default": "leap:16.1"
-    },
-    "agamaVariant": {
-      "type": "string",
-      "description": "Agama development environment:",
-      "enum": ["all-in-one", "base", "kiwi", "ruby", "rust", "web"],
-      "default": "all-in-one"
-    },
-    "mdns": {
-      "type": "boolean",
-      "description": "Resolve the *.local host names (mDNS) via the host Avahi daemon",
-      "default": false
-    },
-    "googleGemini": {
-      "type": "boolean",
-      "description": "Install the Gemini Code Assist support (with SUSE configuration)",
-      "default": true
-    },
-    "anthropicClaude": {
-      "type": "boolean",
-      "description": "Install the Anthropic Claude support (with SUSE configuration)",
-      "default": true
     }
   },
   "platforms": ["Any"],

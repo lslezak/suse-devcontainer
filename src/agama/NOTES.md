@@ -12,18 +12,13 @@ development environment:
 | `rust`       | Rust and C/C++ development       | rust-analyzer, TOML, Jsonnet, C++      |
 | `web`        | `nodejs`, `npm`                  | color picker, ESLint, npm IntelliSense |
 
-- To switch the variant later change both `AGAMA_VARIANT` in
-  `.devcontainer/Dockerfile` and the `agama-<variant>` feature in
-  `.devcontainer/devcontainer.json`.
+- To switch the variant later change the `agama-<variant>` feature in
+  `.devcontainer/devcontainer.json`, the packages are installed by the feature.
 
 ## Notes
 
 - The AI configuration is copied to the home directory only when missing, edit
   `.devcontainer/features/*-true` to change the defaults.
-- The packages for `mdns` or `anthropicClaude` are installed in the Dockerfile
-  (the feature layers are not cached), to change the option later update both
-  the `ARG` in `.devcontainer/Dockerfile` and the feature in
-  `.devcontainer/devcontainer.json`.
 - The home directory is a persistent volume, it survives container rebuilds.
 - Tuned for Podman, for Docker remove `runArgs` (`--userns=keep-id`) from
   `.devcontainer/devcontainer.json`.

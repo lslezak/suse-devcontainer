@@ -2,7 +2,7 @@
   "id": "agama-rust",
   "version": "1.0.0",
   "name": "Agama Rust",
-  "description": "Agama Rust backend development tools (VS Code extensions and settings, the packages are installed in the Dockerfile)",
+  "description": "Agama Rust backend development tools",
   "customizations": {
     "vscode": {
       "extensions": [

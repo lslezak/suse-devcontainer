@@ -2,7 +2,7 @@
   "id": "agama-ruby",
   "version": "1.0.0",
   "name": "Agama Ruby",
-  "description": "Agama Ruby service development tools (VS Code extensions and settings, the packages are installed in the Dockerfile)",
+  "description": "Agama Ruby service development tools",
   "customizations": {
     "vscode": {
       "extensions": [
