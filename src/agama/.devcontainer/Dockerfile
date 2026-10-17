@@ -41,7 +41,7 @@ ARG BASE_PACKAGES="bash-completion \
 
 # Disable the openH.264 repo to have faster refresh
 # Sync the Tumbleweed image content first with "zypper dup"
-# hadolint ignore=SC1091
+# hadolint ignore=SC1091,DL3035
 RUN . /etc/os-release \
     && if [ "$ID" = "opensuse-tumbleweed" ]; then \
       zypper modifyrepo --disable repo-openh264; \
