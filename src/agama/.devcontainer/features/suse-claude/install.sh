@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # The AI agents usually run Bash or Python code snippets. Install the packages
@@ -11,11 +11,11 @@ fi
 
 # temporarily disable the OSS repo to have faster refresh
 if [ "$ID" = "opensuse-tumbleweed" ]; then
-  REPOS="repo-oss repo-update"
+  REPOS=(repo-oss repo-update)
 else
-  REPOS="openSUSE:repo-oss"
+  REPOS=(openSUSE:repo-oss)
 fi
-zypper modifyrepo --disable $REPOS
+zypper modifyrepo --disable "${REPOS[@]}"
 
 # install Google Cloud CLI, needed for logging into the VertexAI service
 zypper ar -f "https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-$(uname -m)" google-cloud-rhel10
@@ -23,7 +23,7 @@ zypper --non-interactive --gpg-auto-import-keys install --no-recommends google-c
 if [ "$REPO_CLEANUP" = "true" ]; then
   zypper clean -a
 fi
-zypper modifyrepo --enable $REPOS
+zypper modifyrepo --enable "${REPOS[@]}"
 # disable the repo, very likely it won't be needed later
 zypper modifyrepo --disable google-cloud-rhel10
 
