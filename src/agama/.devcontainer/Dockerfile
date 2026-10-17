@@ -46,7 +46,7 @@ RUN . /etc/os-release \
     && if [ "$ID" = "opensuse-tumbleweed" ]; then \
       zypper modifyrepo --disable repo-openh264; \
       zypper --non-interactive dup --allow-downgrade; \
-      if [ "$REPO_CLEANUP" = "true" ]; then zypper clean -a; fi
+      if [ "$REPO_CLEANUP" = "true" ]; then zypper clean -a; fi \
     else \
       zypper modifyrepo --disable openSUSE:repo-openh264; \
     fi
