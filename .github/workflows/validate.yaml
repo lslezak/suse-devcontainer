@@ -33,19 +33,26 @@ jobs:
           validate-only: "true"
           base-path-to-features: "./src/agama/.devcontainer/features"
 
+      - name: "Validate devcontainer-feature.json files (this repository)"
+        uses: devcontainers/action@v1
+        with:
+          validate-only: "true"
+          base-path-to-features: "./.devcontainer/features"
+
       # each template must contain its own copy of the shared features
       - name: "Check the shared features are in sync"
         run: |
           for feature in suse-gemini suse-claude; do
             diff -r "src/opensuse/.devcontainer/features/$feature" "src/agama/.devcontainer/features/$feature"
+            diff -r ".devcontainer/features/$feature" "src/agama/.devcontainer/features/$feature"
           done
 
       - name: "Check shell scripts"
-        run: shellcheck -x test/*.sh test/*/*.sh src/*/.devcontainer/features/*/*.sh
+        run: shellcheck -x test/*.sh test/*/*.sh .devcontainer/features/*/*.sh src/*/.devcontainer/features/*/*.sh
 
       # hadolint/hadolint-action skips the hidden .devcontainer directories
       # in the recursive mode, run the hadolint image directly
       - name: "Check Dockerfiles"
         run: |
           docker run --rm -v "$PWD:/work:ro" -w /work hadolint/hadolint:v2.15.1 \
-            /bin/hadolint --config .hadolint.yaml src/*/.devcontainer/Dockerfile
+            /bin/hadolint --config .hadolint.yaml .devcontainer/Dockerfile src/*/.devcontainer/Dockerfile
