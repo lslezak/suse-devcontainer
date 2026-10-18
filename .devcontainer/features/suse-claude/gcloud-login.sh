@@ -1,0 +1,20 @@
+#! /bin/bash
+
+# just a helper script to login to the correct project
+
+# already logged in
+if [ -e ~/.config/gcloud/application_default_credentials.json ]; then
+  echo "Already logged in to Google Cloud"
+  exit 0
+fi
+
+# login to Vertex
+if ! gcloud auth application-default login --project vertex-ai-206179; then
+  echo "Google Cloud login failed, run gcloud-login.sh later again"
+  exit 1
+fi
+
+YELLOW=$'\033[33m'
+RESET=$'\033[0m'
+echo "${YELLOW}REMINDER: Do not forget to remove the port forwarding for the port 8085"
+echo "  so the login in other containers is not blocked.${RESET}"

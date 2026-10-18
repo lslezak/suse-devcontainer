@@ -1,0 +1,83 @@
+{
+  // This file was generated from the "ghcr.io/lslezak/suse-devcontainer/opensuse" template.
+  // See more details in https://containers.dev/overview
+  "name": "openSUSE leap:16.1",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  // Install optional support for the AI code assistants,
+  // comment out the ones which you do not use
+  "features": {
+    // Install Google Gemini Code Assist support with SUSE specific config
+    "./features/suse-gemini": {},
+    // Install Anthropic Claude Code support with SUSE specific config
+    "./features/suse-claude": {}
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "git config --global --add safe.directory /workspaces",
+  "remoteEnv": {
+    // Use vscode itself as the $EDITOR
+    "EDITOR": "code --wait",
+    // When the VSCode is closed the terminal history is not autosaved, force
+    // saving the history after every command.
+    "PROMPT_COMMAND": "history -a"
+  },
+  // These options are Podman specific, remove them when using Docker
+  "runArgs": [
+    // keep the current user and group ID (podman only, delete when using Docker)
+    "--userns=keep-id",
+    // disable SELinux isolation
+    "--security-opt",
+    "label=disable"
+  ],
+  "mounts": [
+    // persist the user home directory (npm cache, shell history,...)
+    // https://code.visualstudio.com/docs/devcontainers/tips-and-tricks#_persisting-user-profile
+    // the "${devcontainerId}" suffix makes the volume unique for each project,
+    // remove it if you want to share the home directory with other containers
+    "source=devcontainer-home-${devcontainerId},target=/home/vscode,type=volume",
+    // anonymous volume that gets destroyed on rebuild,
+    // this allows VS Code to reinstall extensions and dotfiles
+    "target=/home/vscode/.vscode-server,type=volume",
+    // persistent extension cache to reinstall the extensions faster, you might share it with multiple containers
+    "source=extension-cache,target=/home/vscode/.vscode-server/extensionsCache/,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      // Set some VSCode setting specially for this container only
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        // disable all Copilot AI features
+        "chat.disableAIFeatures": true
+      },
+      "extensions": [
+        // highlight bug IDs, bug preview on hover
+        "lslezak.bug-id",
+        // spellchecker
+        "streetsidesoftware.code-spell-checker",
+        // GitHub Actions integration
+        "github.vscode-github-actions",
+        // prettier autoformatter for JS, TS, YAML, JSON, Markdown...
+        "esbenp.prettier-vscode",
+        // shell programming
+        "mads-hartmann.bash-ide-vscode",
+        // collect TODO, FIXME...
+        "Gruntfuggly.todo-tree",
+        // YAML support
+        "redhat.vscode-yaml",
+        // show Markdown preview using the GitHub style
+        "bierner.markdown-preview-github-styles",
+        // render GitHub emoji (:smiley:) in Markdown
+        "bierner.markdown-emoji",
+        // Markdown editing (automatic TOC, table reformatting,...)
+        "yzhang.markdown-all-in-one",
+        // Rewrap paragraph
+        "stkb.rewrap",
+        // Markdown linter
+        "DavidAnson.vscode-markdownlint",
+        // Bookmarks
+        "alefragnani.Bookmarks"
+      ]
+    }
+  }
+}
