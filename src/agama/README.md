@@ -8,10 +8,6 @@ Development container for the Agama installer based on openSUSE Leap or openSUSE
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
 | imageVariant | openSUSE base system: | string | leap:16.1 |
-| agamaVariant | Agama development environment: | string | all-in-one |
-| mdns | Resolve the *.local host names (mDNS) via the host Avahi daemon | boolean | false |
-| googleGemini | Install the Gemini Code Assist support (with SUSE configuration) | boolean | true |
-| anthropicClaude | Install the Anthropic Claude support (with SUSE configuration) | boolean | true |
 
 ## Agama variants
 
@@ -32,45 +28,15 @@ development environment:
 
 ## Notes
 
-- `imageVariant`: `registry.opensuse.org/opensuse/leap:16.0` or
-  `registry.opensuse.org/opensuse/tumbleweed` base image.
-- `mdns`: `nss-mdns` and the host `/run/avahi-daemon` mount for resolving the
-  `.local` host names, Avahi must run on the host, the container fails to start
-  otherwise.
-- `googleGemini`: `google.geminicodeassist` extension and
-  `~/.gemini/trustedFolders.json`.
-- `anthropicClaude`: `Anthropic.claude-code` extension, `~/.claude/settings.json`
-  (no login prompt) and `google-cloud-cli` (`x86_64` and `aarch64` only),
-  run `gcloud-login.sh` to log in (a hint is printed when attaching).
 - The AI configuration is copied to the home directory only when missing, edit
   `.devcontainer/features/*-true` to change the defaults.
 - The home directory is a persistent volume, it survives container rebuilds.
 - Tuned for Podman, for Docker remove `runArgs` (`--userns=keep-id`) from
   `.devcontainer/devcontainer.json`.
 
-## Visual Studio Code
+## Links
 
-Select **Add configuration to workspace**, with the user data folder the build
-fails with _Local file path parse error_ (the local features must be in the
-workspace).
-
-## Keeping the configuration out of the project
-
-Exclude it locally and optionally track it in a separate repository:
-
-```sh
-echo "/.devcontainer/" >> .git/info/exclude
-cd .devcontainer
-git init -b main && git add . && git commit -m "Dev container configuration"
-gh repo create <project>-devcontainer --private --source . --push
-```
-
-To restore it in another checkout:
-
-```sh
-git clone git@github.com:<user>/<project>-devcontainer.git .devcontainer
-echo "/.devcontainer/" >> .git/info/exclude
-```
+See more details in the [README.md](README.md) file.
 
 
 ---
