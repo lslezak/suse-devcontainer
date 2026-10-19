@@ -4,6 +4,7 @@ set -e
 zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-downgrade \
   bats \
   python3-kiwi
+
 if [ "$REPO_CLEANUP" = "true" ]; then
   zypper clean -a
 fi

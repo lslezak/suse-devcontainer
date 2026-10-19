@@ -7,8 +7,8 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  // Install optional support for the AI code assistants,
-  // comment out the ones which you do not use
+  // Install optional support for the specific Agama parts and the AI code assistants.
+  // Comment out the features which you do not want to use.
   "features": {
     // Install packages and VSCode extensions for the Live ISO development
     "./features/agama-kiwi": {},
@@ -65,6 +65,7 @@
         }
       },
       "extensions": [
+        // Comment out or delete the extensions you do not want to install
         // ------------------
         // GENERIC EXTENSIONS
         // ------------------
@@ -103,8 +104,6 @@
         "bierner.markdown-emoji",
         // Markdown editing (automatic TOC, table reformatting,...)
         "yzhang.markdown-all-in-one"
-        // the Agama specific and AI code assist extensions are installed by the
-        // features above
       ]
     }
   }

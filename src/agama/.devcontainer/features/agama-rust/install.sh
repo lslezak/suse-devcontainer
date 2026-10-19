@@ -21,6 +21,7 @@ zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-
   rust-bindgen \
   timezone \
   xkeyboard-config-lang
+
 if [ "$REPO_CLEANUP" = "true" ]; then
   zypper clean -a
 fi

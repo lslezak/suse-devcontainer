@@ -5,6 +5,7 @@ zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-
   gettext-tools \
   augeas-devel \
   ruby-devel
+
 if [ "$REPO_CLEANUP" = "true" ]; then
   zypper clean -a
 fi
