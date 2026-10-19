@@ -5,6 +5,7 @@ set -e
 # only when they are missing to avoid a slow repository refresh.
 if ! rpm -q python3 python3-pip > /dev/null 2>&1; then
   zypper --non-interactive --gpg-auto-import-keys install --no-recommends python3 python3-pip
+
   if [ "$REPO_CLEANUP" = "true" ]; then
     zypper clean -a
   fi
