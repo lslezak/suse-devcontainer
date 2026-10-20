@@ -3,7 +3,7 @@
   // See more details in https://containers.dev/overview
   "name": "openSUSE leap:16.1",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Containerfile"
   },
   // Install optional support for the AI code assistants,
   // comment out the ones which you do not use

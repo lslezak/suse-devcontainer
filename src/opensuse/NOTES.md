@@ -1,7 +1,7 @@
 ## Customization
 
 Add the packages needed by your project to `DEVEL_PACKAGES` in
-`.devcontainer/Dockerfile`.
+`.devcontainer/Containerfile`.
 
 ## Notes
 

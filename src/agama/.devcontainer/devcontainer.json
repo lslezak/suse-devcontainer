@@ -5,7 +5,7 @@
   // See more details in https://containers.dev/overview
   "name": "Agama",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Containerfile"
   },
   // Install optional support for the specific Agama parts and the AI code assistants.
   // Comment out the features which you do not want to use.

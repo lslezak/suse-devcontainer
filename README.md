@@ -4,8 +4,9 @@
 [![Test Templates](https://github.com/lslezak/suse-devcontainer/actions/workflows/test.yaml/badge.svg)](https://github.com/lslezak/suse-devcontainer/actions/workflows/test.yaml)
 [![Validate Templates](https://github.com/lslezak/suse-devcontainer/actions/workflows/validate.yaml/badge.svg)](https://github.com/lslezak/suse-devcontainer/actions/workflows/validate.yaml)
 
-[Dev Container Templates](https://containers.dev/implementors/templates/) based
-on [openSUSE](https://www.opensuse.org/).
+This repository contains [Dev Container Templates](https://containers.dev/implementors/templates/)
+based on [openSUSE](https://www.opensuse.org/) Linux distro. The containers are suitable for
+development and programming in openSUSE.
 
 | Template                 | Description                                                               |
 | ------------------------ | ------------------------------------------------------------------------- |
@@ -57,7 +58,8 @@ Devcontainer CLI.
    additional packages using `apt` or `dnf` without `zypper` support.)
    It's recommended to just skip this without selecting any additional features.
 7. Then the container files will be generated to the `.devcontainer` folder. You
-   can inspect them or possibly modify to fit your needs.
+   can inspect them or possibly modify to fit your needs. See the [Customization
+   section](#customization) below.
 8. After opening the folder in VSCode click **Open in Container** in the bottom
    right corner or manually select **Dev Containers: Rebuild and Open in
    Container** from the command palette.
@@ -88,6 +90,27 @@ devcontainer templates apply --workspace-folder . \
   --template-id ghcr.io/lslezak/suse-devcontainer/agama \
   --template-args '{"imageVariant": "leap:16.1", "agamaVariant": "all-in-one"}'
 ```
+
+## Devcontainer parts
+
+The devcontainer contains several parts in the `.devcontainer` directory:
+
+- `Containerfile` - the main container image definition, defines what is inside
+- `devcontainer.json` - defines how to run the container, which VSCode extensions should be
+  installed, installs [devcontainer features](https://containers.dev/implementors/features/) (small
+  shareable parts of the container configuration)
+- `features/*` - implement a small shareable self-contained container feature, the `install.sh` is
+  run during image build (basically extends the `Containerfile`), the `devcontainer-feature.json` file
+  extends the base `devcontainer.json` file.
+
+## Customization
+
+For basic customization you can change these values:
+
+- Enable/disable the features in the `devcontainer.json` file
+- Change the list of installed VSCode extensions
+- [Configure hooks](https://containers.dev/implementors/json_reference/#lifecycle-scripts)
+- Install additional packages in `Containerfile` (see the `EXTRA_PACKAGES` argument)
 
 ## Keeping the configuration out of the project
 

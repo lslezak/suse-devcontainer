@@ -1,4 +1,4 @@
-# The openSUSE base image, "leap:16.1" or "tumbleweed"
+# The openSUSE base image, "leap:16.1", "leap:16.0" or "tumbleweed"
 # hadolint ignore=DL3006
 FROM registry.opensuse.org/opensuse/${templateOption:imageVariant}
 
@@ -40,28 +40,30 @@ ARG BASE_PACKAGES="bash-completion \
   yq"
 
 # Disable the openH.264 repo to have faster refresh
-# hadolint ignore=SC1091
+# Sync the Tumbleweed image content first with "zypper dup"
+# hadolint ignore=SC1091,DL3035
 RUN . /etc/os-release \
     && if [ "$ID" = "opensuse-tumbleweed" ]; then \
       zypper modifyrepo --disable repo-openh264; \
+      zypper --non-interactive dup --allow-downgrade; \
+      if [ "$REPO_CLEANUP" = "true" ]; then zypper clean -a; fi \
     else \
       zypper modifyrepo --disable openSUSE:repo-openh264; \
     fi
 
-# Install the common packages, the layer is shared by all images built from
-# this template
-RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
-    $BASE_PACKAGES \
+# Install the common packages, the Agama specific packages are installed by the
+# agama-* feature in the devcontainer.json file
+RUN zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-downgrade \
+      $BASE_PACKAGES \
     && if [ "$REPO_CLEANUP" = "true" ]; then zypper clean -a; fi
 
-# packages needed for developing your project, add your own here (declared after
-# the common layer, changing it does not invalidate that layer and allows
-# sharing the base packages with multiple containers)
-ARG DEVEL_PACKAGES=""
+# additional packages, add your own here
+# (declared after the common layer, changing it does not invalidate that layer)
+ARG EXTRA_PACKAGES=""
 
-RUN if [ -n "$DEVEL_PACKAGES" ]; then \
-      zypper --non-interactive --gpg-auto-import-keys install --no-recommends \
-        $DEVEL_PACKAGES \
+RUN if [ -n "$EXTRA_PACKAGES" ]; then \
+      zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-downgrade \
+        $EXTRA_PACKAGES \
       && if [ "$REPO_CLEANUP" = "true" ]; then zypper clean -a; fi; \
     fi
 

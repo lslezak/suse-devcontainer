@@ -12,7 +12,7 @@ Development container based on openSUSE Leap or openSUSE Tumbleweed with common 
 ## Customization
 
 Add the packages needed by your project to `DEVEL_PACKAGES` in
-`.devcontainer/Dockerfile`.
+`.devcontainer/Containerfile`.
 
 ## Notes
 
