@@ -36,6 +36,8 @@
   },
   // These options are Podman specific, remove them when using Docker
   "runArgs": [
+    // use the same time zone as the host (podman only, delete when using Docker)
+    "--tz=local",
     // keep the current user and group ID (podman only, delete when using Docker)
     "--userns=keep-id",
     // disable SELinux isolation
