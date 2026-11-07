@@ -18,6 +18,7 @@ zypper --non-interactive --gpg-auto-import-keys install --no-recommends --allow-
   pam-devel \
   python-langtable-data \
   rust \
+  rust-src \
   rust-bindgen \
   timezone \
   xkeyboard-config-lang
