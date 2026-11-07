@@ -5,26 +5,9 @@ Development container for the Agama installer based on openSUSE Leap or openSUSE
 
 ## Options
 
-| Options Id | Description | Type | Default Value |
-|-----|-----|-----|-----|
-| imageVariant | openSUSE base system: | string | leap:16.1 |
-
-## Agama variants
-
-The `agamaVariant` option selects the [Agama](https://github.com/agama-project/agama)
-development environment:
-
-| Value        | Packages                         | VS Code extensions                     |
-| ------------ | -------------------------------- | -------------------------------------- |
-| `all-in-one` | all below                        | all below                              |
-| `base`       | `gettext-tools`                  | generic only                           |
-| `kiwi`       | `python3-kiwi`, `bats`           | XML (with the Kiwi schema)             |
-| `ruby`       | Ruby development, `ruby-lsp` gem | Ruby LSP, endwise, YARD                |
-| `rust`       | Rust and C/C++ development       | rust-analyzer, TOML, Jsonnet, C++      |
-| `web`        | `nodejs`, `npm`                  | color picker, ESLint, npm IntelliSense |
-
-- To switch the variant later change the `agama-<variant>` feature in
-  `.devcontainer/devcontainer.json`, the packages are installed by the feature.
+| Options Id   | Description           | Type   | Default Value |
+| ------------ | --------------------- | ------ | ------------- |
+| imageVariant | openSUSE base system: | string | leap:16.1     |
 
 ## Notes
 
@@ -37,7 +20,6 @@ development environment:
 ## Links
 
 See more details in the [README.md](README.md) file.
-
 
 ---
 

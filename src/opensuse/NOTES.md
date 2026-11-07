@@ -1,6 +1,6 @@
 ## Customization
 
-Add the packages needed by your project to `DEVEL_PACKAGES` in
+Add the packages needed by your project to `EXTRA_PACKAGES` in
 `.devcontainer/Containerfile`.
 
 ## Notes
