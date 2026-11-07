@@ -15,7 +15,7 @@ development and programming in openSUSE.
 
 [Agama]: https://github.com/agama-project/agama
 
-For both it is possible to enable optional Gemini and Claude support with SUSE default
+For both it is possible to enable optional Gemini and Claude support with SUSE employee default
 authentication configuration.
 
 ## Advantages
@@ -48,18 +48,19 @@ Devcontainer CLI.
    which container you want to use.
 4. Select the base product used for the new container, either openSUSE Leap
    or openSUSE Tumbleweed.
-5. If you selected the Agama container then select which Agama components you
-   want to develop. The full (all-in-one) container image is quite big, almost
-   3GB. If you want to work only on a particular Agama part (like the Web
-   frontend) you can select only that part and save some disk space.
-6. Then you can select some community features, but be careful, many of them
+5. Then you can select some community features, but be careful, many of them
    support only few Linux distributions. Quite often they are written only for
    Ubuntu or Fedora and do not support openSUSE. (They usually install
    additional packages using `apt` or `dnf` without `zypper` support.)
    It's recommended to just skip this without selecting any additional features.
-7. Then the container files will be generated to the `.devcontainer` folder. You
+6. Then the container files will be generated to the `.devcontainer` folder. You
    can inspect them or possibly modify to fit your needs. See the [Customization
    section](#customization) below.
+7. If you selected the Agama container then select which Agama components you
+   want to develop. The full container image is quite big, almost 3GB. If you
+   want to work only on a particular Agama part (like the Web frontend only) you
+   can select only the dev container feature for that part and save some disk
+   space.
 8. After opening the folder in VSCode click **Open in Container** in the bottom
    right corner or manually select **Dev Containers: Rebuild and Open in
    Container** from the command palette.
@@ -88,7 +89,7 @@ devcontainer templates apply --workspace-folder . \
 ```sh
 devcontainer templates apply --workspace-folder . \
   --template-id ghcr.io/lslezak/suse-devcontainer/agama \
-  --template-args '{"imageVariant": "leap:16.1", "agamaVariant": "all-in-one"}'
+  --template-args '{"imageVariant": "leap:16.1"}'
 ```
 
 ## Devcontainer parts
